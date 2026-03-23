@@ -1,0 +1,1 @@
+"""Service layer for ocr-service."""

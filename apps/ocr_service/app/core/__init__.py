@@ -1,0 +1,1 @@
+"""Core config and error definitions for ocr-service."""

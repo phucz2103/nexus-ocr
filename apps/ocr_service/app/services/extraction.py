@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-import pypdfium2 as pdfium
 from fastapi import UploadFile
 from PIL import Image
 
@@ -27,7 +26,6 @@ ALLOWED_IMAGE_EXTENSIONS = {
     ".tiff",
     ".webp",
 }
-ALLOWED_DOCUMENT_EXTENSIONS = ALLOWED_IMAGE_EXTENSIONS | {".pdf"}
 
 
 @dataclass(slots=True)
@@ -68,19 +66,12 @@ class ExtractionService:
         paths = self._storage.prepare_request(request_id, input_suffix)
         self._storage.write_bytes(paths.input_file, payload)
 
-        data_info = self._read_input_info(paths.input_file)
-        input_page_images = (
-            self._render_pdf_previews(paths.input_file)
-            if data_info["type"] == "pdf"
-            else None
-        )
-
+        data_info = self._read_image_info(paths.input_file)
         inference_result = self._backend.extract(paths.input_file)
         result_json, result_markdown = self._assemble_result(
             request_id=request_id,
             data_info=data_info,
             pages=inference_result.pages,
-            input_page_images=input_page_images,
         )
 
         self._storage.write_json(paths.result_json, result_json)
@@ -113,47 +104,29 @@ class ExtractionService:
         request_id: str,
         data_info: dict[str, Any],
         pages: list[InferencePage],
-        input_page_images: list[Image.Image] | None = None,
     ) -> tuple[dict[str, Any], str]:
         if not pages:
             raise InferenceFailedError("Inference produced no pages.")
 
-        layout_results: list[dict[str, Any]] = []
+        ocr_results: list[dict[str, Any]] = []
         preprocessed_images: list[str] = []
         markdown_pages: list[str] = []
-        total_pages = len(pages)
-        is_pdf = data_info.get("type") == "pdf"
 
         for page_index, page in enumerate(pages):
-            page_pruned_result = dict(page.pruned_result)
-            if is_pdf:
-                page_pruned_result["page_count"] = total_pages
-                page_pruned_result["page_index"] = page_index
-
             (
                 input_image_url,
                 page_output_images,
                 page_preprocessed_images,
                 markdown_image_urls,
-            ) = self._persist_page_artifacts(
-                request_id=request_id,
-                page_index=page_index,
-                page=page,
-                input_page_image=(
-                    input_page_images[page_index]
-                    if input_page_images is not None and page_index < len(input_page_images)
-                    else None
-                ),
-                prefer_original_input=not is_pdf,
-            )
+            ) = self._persist_page_artifacts(request_id, page_index, page)
 
             page_markdown = {
                 "text": page.markdown.get("text", ""),
                 "images": markdown_image_urls,
             }
-            layout_results.append(
+            ocr_results.append(
                 {
-                    "prunedResult": page_pruned_result,
+                    "prunedResult": page.pruned_result,
                     "markdown": page_markdown,
                     "outputImages": page_output_images,
                     "inputImage": input_image_url,
@@ -166,7 +139,7 @@ class ExtractionService:
                 markdown_pages.append(markdown_text)
 
         result_json = {
-            "layoutParsingResults": layout_results,
+            "ocrParsingResults": ocr_results,
             "dataInfo": data_info,
             "preprocessedImages": preprocessed_images,
         }
@@ -182,31 +155,13 @@ class ExtractionService:
         request_id: str,
         page_index: int,
         page: InferencePage,
-        input_page_image: Image.Image | None,
-        prefer_original_input: bool,
     ) -> tuple[str, dict[str, str], list[str], dict[str, str]]:
         output_images: dict[str, str] = {}
         preprocessed_images: list[str] = []
         input_image_url = self._input_url(request_id)
 
-        if input_page_image is not None:
-            artifact_name = self._storage.save_image_artifact(
-                request_id,
-                f"page_{page_index}_input_img",
-                input_page_image,
-            )
-            input_image_url = self._artifact_url(request_id, artifact_name)
-
         for image_key, image_value in page.images.items():
             if image_key.startswith("input_img"):
-                if prefer_original_input or input_page_image is not None:
-                    continue
-                artifact_name = self._storage.save_image_artifact(
-                    request_id,
-                    f"page_{page_index}_{image_key}",
-                    image_value,
-                )
-                input_image_url = self._artifact_url(request_id, artifact_name)
                 continue
 
             artifact_name = self._storage.save_image_artifact(
@@ -236,29 +191,23 @@ class ExtractionService:
         return input_image_url, output_images, preprocessed_images, markdown_image_urls
 
     def _build_summary(self, result_json: dict[str, Any]) -> dict[str, int]:
-        pages = result_json.get("layoutParsingResults", [])
-        blocks = 0
-        tables = 0
+        pages = result_json.get("ocrParsingResults", [])
+        lines = 0
+        words = 0
 
         for page in pages:
-            parsing_res_list = (
-                page.get("prunedResult", {}).get("parsing_res_list", []) or []
-            )
-            blocks += len(parsing_res_list)
-            tables += sum(
-                1 for item in parsing_res_list if item.get("block_label") == "table"
+            ocr_res_list = page.get("prunedResult", {}).get("ocr_res_list", []) or []
+            lines += len(ocr_res_list)
+            words += sum(
+                len((item.get("text") or "").split())
+                for item in ocr_res_list
             )
 
         return {
             "pages": len(pages),
-            "blocks": blocks,
-            "tables": tables,
+            "lines": lines,
+            "words": words,
         }
-
-    def _read_input_info(self, input_path: Path) -> dict[str, Any]:
-        if input_path.suffix.lower() == ".pdf":
-            return self._read_pdf_info(input_path)
-        return self._read_image_info(input_path)
 
     def _read_image_info(self, image_path: Path) -> dict[str, Any]:
         try:
@@ -274,72 +223,20 @@ class ExtractionService:
             "width": width,
             "height": height,
             "type": "image",
-            "page_count": 1,
-            "pages": [{"page_index": 0, "width": width, "height": height}],
         }
-
-    def _read_pdf_info(self, pdf_path: Path) -> dict[str, Any]:
-        try:
-            document = pdfium.PdfDocument(str(pdf_path))
-            try:
-                pages: list[dict[str, int | None]] = []
-                for page_index in range(len(document)):
-                    page = document[page_index]
-                    try:
-                        width, height = page.get_size()
-                        pages.append(
-                            {
-                                "page_index": page_index,
-                                "width": int(round(width)),
-                                "height": int(round(height)),
-                            }
-                        )
-                    finally:
-                        page.close()
-            finally:
-                document.close()
-        except Exception as exc:
-            raise InvalidUploadError(
-                f"Unable to open `{pdf_path.name}` as a PDF: {exc}"
-            ) from exc
-
-        return {
-            "width": None,
-            "height": None,
-            "type": "pdf",
-            "page_count": len(pages),
-            "pages": pages,
-        }
-
-    def _render_pdf_previews(self, pdf_path: Path) -> list[Image.Image]:
-        document = pdfium.PdfDocument(str(pdf_path))
-        previews: list[Image.Image] = []
-        try:
-            for page_index in range(len(document)):
-                page = document[page_index]
-                try:
-                    bitmap = page.render(scale=2.0)
-                    previews.append(bitmap.to_pil().convert("RGB"))
-                finally:
-                    page.close()
-        finally:
-            document.close()
-        return previews
 
     def _resolve_input_suffix(self, file: UploadFile) -> str:
         filename = file.filename or "upload"
         suffix = Path(filename).suffix.lower()
-        if suffix in ALLOWED_DOCUMENT_EXTENSIONS:
+        if suffix in ALLOWED_IMAGE_EXTENSIONS:
             return suffix
 
         content_type = file.content_type or mimetypes.guess_type(filename)[0]
         guessed_suffix = mimetypes.guess_extension(content_type or "")
-        if guessed_suffix in ALLOWED_DOCUMENT_EXTENSIONS:
+        if guessed_suffix in ALLOWED_IMAGE_EXTENSIONS:
             return guessed_suffix
 
-        raise InvalidUploadError(
-            "Only image and PDF uploads are supported in this version."
-        )
+        raise InvalidUploadError("Only image uploads are supported in this version.")
 
     def _generate_request_id(self) -> str:
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")

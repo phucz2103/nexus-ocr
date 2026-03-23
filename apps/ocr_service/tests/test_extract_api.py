@@ -18,8 +18,8 @@ if str(SERVICE_ROOT) not in sys.path:
 class ExtractApiTests(unittest.TestCase):
     def setUp(self) -> None:
         self._temp_dir = tempfile.TemporaryDirectory()
-        os.environ["VL_SERVICE_BACKEND"] = "mock"
-        os.environ["VL_SERVICE_ARTIFACT_ROOT"] = str(
+        os.environ["OCR_SERVICE_BACKEND"] = "mock"
+        os.environ["OCR_SERVICE_ARTIFACT_ROOT"] = str(
             Path(self._temp_dir.name) / "artifacts"
         )
 
@@ -35,8 +35,8 @@ class ExtractApiTests(unittest.TestCase):
     def tearDown(self) -> None:
         self._client_context.__exit__(None, None, None)
         self._temp_dir.cleanup()
-        os.environ.pop("VL_SERVICE_BACKEND", None)
-        os.environ.pop("VL_SERVICE_ARTIFACT_ROOT", None)
+        os.environ.pop("OCR_SERVICE_BACKEND", None)
+        os.environ.pop("OCR_SERVICE_ARTIFACT_ROOT", None)
 
         from app.core.config import get_settings
 
@@ -62,51 +62,17 @@ class ExtractApiTests(unittest.TestCase):
         json_response = self.client.get(payload["artifacts"]["json_url"])
         self.assertEqual(json_response.status_code, 200, json_response.text)
         result_json = json_response.json()
-        self.assertIn("layoutParsingResults", result_json)
+        self.assertIn("ocrParsingResults", result_json)
         self.assertIn("dataInfo", result_json)
-        self.assertEqual(result_json["dataInfo"]["type"], "image")
 
         markdown_response = self.client.get(payload["artifacts"]["markdown_url"])
         self.assertEqual(markdown_response.status_code, 200, markdown_response.text)
-        self.assertIn("Mock extraction", markdown_response.text)
+        self.assertIn("Mock OCR extraction", markdown_response.text)
 
-        artifact_root = Path(os.environ["VL_SERVICE_ARTIFACT_ROOT"]) / request_id
+        artifact_root = Path(os.environ["OCR_SERVICE_ARTIFACT_ROOT"]) / request_id
         self.assertTrue((artifact_root / "result.json").exists())
         self.assertTrue((artifact_root / "result.md").exists())
         self.assertTrue((artifact_root / "images").exists())
-
-    def test_extract_pdf_creates_multi_page_results(self) -> None:
-        pdf_bytes = io.BytesIO()
-        first = Image.new("RGB", (320, 180), color="white")
-        second = Image.new("RGB", (320, 180), color="lightgray")
-        first.save(pdf_bytes, format="PDF", save_all=True, append_images=[second])
-        pdf_bytes.seek(0)
-
-        response = self.client.post(
-            "/v1/extract",
-            files={"file": ("sample.pdf", pdf_bytes.getvalue(), "application/pdf")},
-        )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        self.assertEqual(payload["status"], "succeeded")
-        self.assertEqual(payload["summary"]["pages"], 2)
-
-        result_json = self.client.get(payload["artifacts"]["json_url"]).json()
-        self.assertEqual(result_json["dataInfo"]["type"], "pdf")
-        self.assertEqual(result_json["dataInfo"]["page_count"], 2)
-        self.assertEqual(len(result_json["layoutParsingResults"]), 2)
-        self.assertTrue(
-            result_json["layoutParsingResults"][0]["inputImage"].endswith("page_0_input_img.png")
-        )
-        self.assertTrue(
-            result_json["layoutParsingResults"][1]["inputImage"].endswith("page_1_input_img.png")
-        )
-
-        markdown_response = self.client.get(payload["artifacts"]["markdown_url"])
-        self.assertEqual(markdown_response.status_code, 200, markdown_response.text)
-        self.assertIn("page 1/2", markdown_response.text)
-        self.assertIn("page 2/2", markdown_response.text)
 
 
 if __name__ == "__main__":

@@ -11,22 +11,14 @@ class ArtifactLinks(BaseModel):
 
 class ExtractionSummary(BaseModel):
     pages: int
-    blocks: int
-    tables: int
-
-
-class DataPageInfo(BaseModel):
-    page_index: int
-    width: int | None
-    height: int | None
+    lines: int
+    words: int
 
 
 class DataInfo(BaseModel):
     width: int | None
     height: int | None
     type: str
-    page_count: int | None = None
-    pages: list[DataPageInfo] | None = None
 
 
 class ExtractResponse(BaseModel):

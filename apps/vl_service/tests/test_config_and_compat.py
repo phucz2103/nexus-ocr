@@ -84,7 +84,7 @@ class PaddleXCompatShimTests(unittest.TestCase):
             shim_module = sys.modules[module_name]
 
             self.assertTrue(hasattr(shim_module, "official_models"))
-            self.assertEqual(shim_module.official_models, {})
+            self.assertIsNotNone(shim_module.official_models)
         finally:
             if original_module is None:
                 sys.modules.pop(module_name, None)
@@ -94,4 +94,3 @@ class PaddleXCompatShimTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -2,7 +2,7 @@
 
 Standalone API for:
 
-- uploading one image
+- uploading one image or PDF
 - running PaddleOCR-VL or the mock backend
 - generating `result.json`
 - generating `result.md`
@@ -16,9 +16,8 @@ python -m pip install -r requirements/vl_service.txt
 
 ## Local Config
 
-- `.env` is set to `mock` so the API contract can be tested immediately.
-- `.env.real` contains the local PaddleOCR-VL `v1` setup for `vendor/PaddleOCR-VL`.
-- `.env.example` keeps the same `v1` layout if you want to recreate the real config.
+- `.env` is set to the real local PaddleOCR-VL setup on this machine.
+- `.env.example` shows the minimum config needed to run the service again.
 
 ## Run
 
@@ -29,5 +28,7 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8100
 
 ## Notes
 
-- The vendored OCR-VL bundle matches PaddleOCR-VL `v1`.
+- `POST /v1/extract` now accepts both image files and PDF files.
+- For PDF uploads, `dataInfo` includes `page_count` and per-page sizes.
+- Each page in `layoutParsingResults` gets its own `inputImage` preview artifact.
 - The real backend still depends on the local `paddle` and `paddlex` native stack behaving correctly on this machine.

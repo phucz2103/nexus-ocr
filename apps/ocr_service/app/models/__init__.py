@@ -1,0 +1,1 @@
+"""API response models for ocr-service."""
