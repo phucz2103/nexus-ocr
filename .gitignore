@@ -1,0 +1,42 @@
+.venv*/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.env
+.env.*
+logs/
+tmp/
+artifacts/
+
+# OCR runtime outputs and local data
+*.bin
+*.txt
+*.log
+*.csv
+*.tsv
+*.jsonl
+*.tmp
+*.cache
+
+# Model and checkpoint files
+*.onnx
+*.pdmodel
+*.pdiparams
+*.pdiparams.info
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
+# Optional local OCR assets
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
