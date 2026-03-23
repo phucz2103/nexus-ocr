@@ -23,14 +23,23 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _install_paddlex_official_models_shim() -> None:
-    module_name = "paddlex.inference.utils.official_models"
-    if module_name in sys.modules:
-        return
+    try:
+        from paddlex.inference.utils.official_models import official_models  # noqa: F401
 
-    shim = ModuleType(module_name)
-    shim.official_models = {}
-    sys.modules[module_name] = shim
-    LOGGER.info("Installed PaddleX official_models compatibility shim")
+        LOGGER.info("Using PaddleX official_models registry")
+        return
+    except Exception as exc:
+        module_name = "paddlex.inference.utils.official_models"
+        if module_name in sys.modules:
+            return
+
+        shim = ModuleType(module_name)
+        shim.official_models = {}
+        sys.modules[module_name] = shim
+        LOGGER.warning(
+            "Installed PaddleX official_models compatibility shim because the real registry could not be imported: %s",
+            exc,
+        )
 
 
 def _install_paddle_inference_compat_shim() -> None:
