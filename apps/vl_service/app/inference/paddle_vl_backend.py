@@ -5,6 +5,7 @@ import os
 import sys
 from pathlib import Path
 from threading import Lock
+from time import perf_counter
 from types import ModuleType
 from typing import Any
 
@@ -293,10 +294,15 @@ class PaddleOCRVLBackend(InferenceBackend):
 
     def extract(self, input_path: Path) -> InferenceRunResult:
         pipeline = self._ensure_pipeline()
+        started_at = perf_counter()
+        last_page_checkpoint = started_at
+        raw_results: list[Any] = []
         try:
-            raw_results = list(
-                pipeline.predict(str(input_path), **self._settings.predict_kwargs())
-            )
+            for raw_result in pipeline.predict(
+                str(input_path),
+                **self._settings.predict_kwargs(),
+            ):
+                raw_results.append(raw_result)
         except Exception as exc:
             self._last_error = str(exc)
             LOGGER.exception("PaddleOCR-VL inference failed for %s", input_path)
@@ -308,18 +314,38 @@ class PaddleOCRVLBackend(InferenceBackend):
             raise InferenceFailedError("PaddleOCR-VL returned no parsing results.")
 
         pages: list[InferencePage] = []
-        for raw_result in raw_results:
+        for page_index, raw_result in enumerate(raw_results):
+            current_checkpoint = perf_counter()
+            page_duration_ms = max(
+                1,
+                int(round((current_checkpoint - last_page_checkpoint) * 1000)),
+            )
+            last_page_checkpoint = current_checkpoint
+
             raw_json = raw_result.json.get("res", {})
             raw_markdown = self._extract_markdown_payload(raw_result)
             page = InferencePage(
-                pruned_result=self._normalize_page_result(raw_json),
+                pruned_result=self._normalize_page_result(raw_json, page_index),
                 markdown=raw_markdown,
-                images=dict(raw_result.img),
+                images=dict(getattr(raw_result, "img", {}) or {}),
+                metrics=self._build_page_metrics(
+                    page_index=page_index,
+                    page_data=raw_json,
+                    processing_duration_ms=page_duration_ms,
+                ),
             )
             pages.append(page)
 
         self._last_error = None
-        return InferenceRunResult(backend=self.name, pages=pages)
+        return InferenceRunResult(
+            backend=self.name,
+            pages=pages,
+            processing_duration_ms=max(
+                1,
+                int(round((perf_counter() - started_at) * 1000)),
+            ),
+            engine_version=self._settings.engine_version,
+        )
 
     def close(self) -> None:
         pipeline = self._pipeline
@@ -342,7 +368,6 @@ class PaddleOCRVLBackend(InferenceBackend):
                     )
 
                 _install_paddle_inference_compat_shim()
-                _install_paddlex_official_models_shim()
 
                 from paddleocr import PaddleOCRVL
 
@@ -378,9 +403,14 @@ class PaddleOCRVLBackend(InferenceBackend):
             or raw_markdown.get("markdown_images", {}),
         }
 
-    def _normalize_page_result(self, page_data: dict[str, Any]) -> dict[str, Any]:
+    def _normalize_page_result(
+        self,
+        page_data: dict[str, Any],
+        page_index: int,
+    ) -> dict[str, Any]:
         normalized = {
             "page_count": page_data.get("page_count"),
+            "page_index": page_data.get("page_index", page_index),
             "width": page_data.get("width"),
             "height": page_data.get("height"),
             "model_settings": build_model_settings_snapshot(self._settings),
@@ -390,3 +420,28 @@ class PaddleOCRVLBackend(InferenceBackend):
             if optional_key in page_data and page_data[optional_key] is not None:
                 normalized[optional_key] = page_data[optional_key]
         return normalized
+
+    def _build_page_metrics(
+        self,
+        page_index: int,
+        page_data: dict[str, Any],
+        processing_duration_ms: int,
+    ) -> dict[str, Any]:
+        layout_boxes = (page_data.get("layout_det_res") or {}).get("boxes") or []
+        scores = [
+            float(box.get("score"))
+            for box in layout_boxes
+            if isinstance(box.get("score"), (int, float))
+        ]
+        detector_confidence = (
+            round(sum(scores) / len(scores), 4)
+            if scores
+            else None
+        )
+        return {
+            "page_index": page_data.get("page_index", page_index),
+            "processing_duration_ms": processing_duration_ms,
+            "detector_confidence": detector_confidence,
+            "block_count": len(page_data.get("parsing_res_list", []) or []),
+        }
+

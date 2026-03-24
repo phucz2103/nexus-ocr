@@ -102,10 +102,21 @@ class MockVLBackend(InferenceBackend):
                         "preprocessed_img": base_image.copy(),
                         "layout_det_res": layout_preview,
                     },
+                    metrics={
+                        "page_index": page_index,
+                        "processing_duration_ms": 5,
+                        "detector_confidence": 1.0,
+                        "block_count": 1,
+                    },
                 )
             )
 
-        return InferenceRunResult(backend=self.name, pages=results)
+        return InferenceRunResult(
+            backend=self.name,
+            pages=results,
+            processing_duration_ms=max(1, total_pages * 5),
+            engine_version=f"mock/{self._settings.pipeline_version}",
+        )
 
     def _load_pages(self, input_path: Path) -> list[Image.Image]:
         if input_path.suffix.lower() != ".pdf":

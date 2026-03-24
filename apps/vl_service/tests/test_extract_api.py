@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import io
 import os
@@ -22,6 +22,9 @@ class ExtractApiTests(unittest.TestCase):
         os.environ["VL_SERVICE_ARTIFACT_ROOT"] = str(
             Path(self._temp_dir.name) / "artifacts"
         )
+        os.environ["VL_SERVICE_TABLE_DETECTOR_BACKEND"] = "mock"
+        os.environ["VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE"] = "false"
+        os.environ.pop("VL_SERVICE_MAX_SYNC_PDF_PAGES", None)
 
         from app.core.config import get_settings
 
@@ -37,10 +40,35 @@ class ExtractApiTests(unittest.TestCase):
         self._temp_dir.cleanup()
         os.environ.pop("VL_SERVICE_BACKEND", None)
         os.environ.pop("VL_SERVICE_ARTIFACT_ROOT", None)
+        os.environ.pop("VL_SERVICE_TABLE_DETECTOR_BACKEND", None)
+        os.environ.pop("VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE", None)
+        os.environ.pop("VL_SERVICE_MAX_SYNC_PDF_PAGES", None)
 
         from app.core.config import get_settings
 
         get_settings.cache_clear()
+
+    def _recreate_client(self) -> None:
+        self._client_context.__exit__(None, None, None)
+
+        from app.core.config import get_settings
+
+        get_settings.cache_clear()
+
+        from app.main import create_app
+
+        self._client_context = TestClient(create_app())
+        self.client = self._client_context.__enter__()
+
+    def _build_pdf(self, page_count: int) -> io.BytesIO:
+        pdf_bytes = io.BytesIO()
+        pages = [
+            Image.new("RGB", (320, 180), color=color)
+            for color in ("white", "lightgray", "gainsboro", "whitesmoke", "snow")
+        ][:page_count]
+        pages[0].save(pdf_bytes, format="PDF", save_all=True, append_images=pages[1:])
+        pdf_bytes.seek(0)
+        return pdf_bytes
 
     def test_extract_creates_json_and_markdown_artifacts(self) -> None:
         image_bytes = io.BytesIO()
@@ -56,6 +84,17 @@ class ExtractApiTests(unittest.TestCase):
         payload = response.json()
         self.assertEqual(payload["status"], "succeeded")
         self.assertEqual(payload["summary"]["pages"], 1)
+        self.assertEqual(payload["page_count"], 1)
+        self.assertIsNone(payload["page_selection"])
+        self.assertIn("Mock extraction", payload["raw_text"])
+        self.assertIsNotNone(payload["processing_duration_ms"])
+        self.assertIsNotNone(payload["engine_version"])
+        self.assertEqual(len(payload["page_metrics"]), 1)
+        self.assertEqual(payload["table_detection"]["backend"], "mock")
+        self.assertFalse(payload["table_detection"]["document_has_table"])
+        self.assertEqual(payload["table_detection"]["recommended_route"], "ocr_service")
+        self.assertEqual(payload["table_detection"]["actual_route"], "ocr_vl_service")
+        self.assertEqual(len(payload["table_detection"]["pages"]), 1)
 
         request_id = payload["request_id"]
 
@@ -65,6 +104,15 @@ class ExtractApiTests(unittest.TestCase):
         self.assertIn("layoutParsingResults", result_json)
         self.assertIn("dataInfo", result_json)
         self.assertEqual(result_json["dataInfo"]["type"], "image")
+        self.assertEqual(result_json["pageCount"], 1)
+        self.assertIsNone(result_json["pageSelection"])
+        self.assertIn("rawText", result_json)
+        self.assertIn("processingDurationMs", result_json)
+        self.assertIn("engineVersion", result_json)
+        self.assertEqual(len(result_json["pageMetrics"]), 1)
+        self.assertIn("tableDetection", result_json)
+        self.assertFalse(result_json["tableDetection"]["documentHasTable"])
+        self.assertEqual(result_json["tableDetection"]["recommendedRoute"], "ocr_service")
 
         markdown_response = self.client.get(payload["artifacts"]["markdown_url"])
         self.assertEqual(markdown_response.status_code, 200, markdown_response.text)
@@ -76,26 +124,34 @@ class ExtractApiTests(unittest.TestCase):
         self.assertTrue((artifact_root / "images").exists())
 
     def test_extract_pdf_creates_multi_page_results(self) -> None:
-        pdf_bytes = io.BytesIO()
-        first = Image.new("RGB", (320, 180), color="white")
-        second = Image.new("RGB", (320, 180), color="lightgray")
-        first.save(pdf_bytes, format="PDF", save_all=True, append_images=[second])
-        pdf_bytes.seek(0)
-
         response = self.client.post(
             "/v1/extract",
-            files={"file": ("sample.pdf", pdf_bytes.getvalue(), "application/pdf")},
+            files={"file": ("sample.pdf", self._build_pdf(2).getvalue(), "application/pdf")},
         )
 
         self.assertEqual(response.status_code, 200, response.text)
         payload = response.json()
         self.assertEqual(payload["status"], "succeeded")
         self.assertEqual(payload["summary"]["pages"], 2)
+        self.assertEqual(payload["page_count"], 2)
+        self.assertEqual(len(payload["page_metrics"]), 2)
+        self.assertEqual(payload["page_selection"]["page_start"], 1)
+        self.assertEqual(payload["page_selection"]["page_end"], 2)
+        self.assertEqual(payload["page_selection"]["selected_page_count"], 2)
+        self.assertFalse(payload["table_detection"]["document_has_table"])
+        self.assertEqual(len(payload["table_detection"]["pages"]), 2)
 
         result_json = self.client.get(payload["artifacts"]["json_url"]).json()
         self.assertEqual(result_json["dataInfo"]["type"], "pdf")
         self.assertEqual(result_json["dataInfo"]["page_count"], 2)
         self.assertEqual(len(result_json["layoutParsingResults"]), 2)
+        self.assertEqual(result_json["pageCount"], 2)
+        self.assertEqual(len(result_json["pageMetrics"]), 2)
+        self.assertEqual(result_json["pageSelection"]["pageStart"], 1)
+        self.assertEqual(result_json["pageSelection"]["pageEnd"], 2)
+        self.assertIn("tableDetection", result_json)
+        self.assertFalse(result_json["tableDetection"]["documentHasTable"])
+        self.assertEqual(len(result_json["tableDetection"]["pages"]), 2)
         self.assertTrue(
             result_json["layoutParsingResults"][0]["inputImage"].endswith("page_0_input_img.png")
         )
@@ -107,6 +163,123 @@ class ExtractApiTests(unittest.TestCase):
         self.assertEqual(markdown_response.status_code, 200, markdown_response.text)
         self.assertIn("page 1/2", markdown_response.text)
         self.assertIn("page 2/2", markdown_response.text)
+
+    def test_extract_pdf_with_blank_page_fields_processes_full_document(self) -> None:
+        response = self.client.post(
+            "/v1/extract",
+            data={"page_start": "", "page_end": ""},
+            files={"file": ("sample.pdf", self._build_pdf(2).getvalue(), "application/pdf")},
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["page_count"], 2)
+        self.assertEqual(payload["page_selection"]["page_start"], 1)
+        self.assertEqual(payload["page_selection"]["page_end"], 2)
+
+    def test_extract_pdf_page_range_processes_selected_pages_only(self) -> None:
+        response = self.client.post(
+            "/v1/extract",
+            data={"page_start": "2", "page_end": "2"},
+            files={"file": ("sample.pdf", self._build_pdf(3).getvalue(), "application/pdf")},
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["page_count"], 1)
+        self.assertEqual(payload["summary"]["pages"], 1)
+        self.assertEqual(payload["page_selection"]["page_start"], 2)
+        self.assertEqual(payload["page_selection"]["page_end"], 2)
+        self.assertEqual(payload["page_selection"]["selected_page_count"], 1)
+        self.assertEqual(payload["page_selection"]["total_page_count"], 3)
+
+        result_json = self.client.get(payload["artifacts"]["json_url"]).json()
+        self.assertEqual(result_json["dataInfo"]["page_count"], 3)
+        self.assertEqual(result_json["pageCount"], 1)
+        self.assertEqual(result_json["pageSelection"]["pageStart"], 2)
+        self.assertEqual(result_json["pageSelection"]["pageEnd"], 2)
+        self.assertEqual(result_json["pageSelection"]["selectedPageCount"], 1)
+        self.assertEqual(result_json["pageSelection"]["totalPageCount"], 3)
+        self.assertEqual(len(result_json["layoutParsingResults"]), 1)
+        self.assertEqual(
+            result_json["layoutParsingResults"][0]["prunedResult"]["page_index"],
+            1,
+        )
+        self.assertEqual(result_json["pageMetrics"][0]["pageIndex"], 1)
+        self.assertEqual(result_json["tableDetection"]["pages"][0]["pageIndex"], 1)
+        self.assertTrue(
+            result_json["layoutParsingResults"][0]["inputImage"].endswith("page_1_input_img.png")
+        )
+
+    def test_extract_rejects_page_range_for_images(self) -> None:
+        image_bytes = io.BytesIO()
+        Image.new("RGB", (320, 180), color="white").save(image_bytes, format="PNG")
+        image_bytes.seek(0)
+
+        response = self.client.post(
+            "/v1/extract",
+            data={"page_start": "1"},
+            files={"file": ("sample.png", image_bytes.getvalue(), "image/png")},
+        )
+
+        self.assertEqual(response.status_code, 400, response.text)
+        self.assertIn("can only be used with PDF uploads", response.json()["detail"])
+
+    def test_extract_rejects_page_end_without_page_start(self) -> None:
+        response = self.client.post(
+            "/v1/extract",
+            data={"page_end": "2"},
+            files={"file": ("sample.pdf", self._build_pdf(3).getvalue(), "application/pdf")},
+        )
+
+        self.assertEqual(response.status_code, 400, response.text)
+        self.assertIn("`page_start` is required", response.json()["detail"])
+
+    def test_extract_rejects_pdf_over_sync_page_limit(self) -> None:
+        os.environ["VL_SERVICE_MAX_SYNC_PDF_PAGES"] = "1"
+        self._recreate_client()
+
+        response = self.client.post(
+            "/v1/extract",
+            files={"file": ("sample.pdf", self._build_pdf(2).getvalue(), "application/pdf")},
+        )
+
+        self.assertEqual(response.status_code, 400, response.text)
+        self.assertIn("exceeds the synchronous PDF limit of 1 pages", response.json()["detail"])
+
+    def test_extract_pdf_page_range_can_fit_within_sync_limit(self) -> None:
+        os.environ["VL_SERVICE_MAX_SYNC_PDF_PAGES"] = "1"
+        self._recreate_client()
+
+        response = self.client.post(
+            "/v1/extract",
+            data={"page_start": "2", "page_end": "2"},
+            files={"file": ("sample.pdf", self._build_pdf(2).getvalue(), "application/pdf")},
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["page_count"], 1)
+        self.assertEqual(payload["page_selection"]["selected_page_count"], 1)
+
+    def test_extract_can_report_table_presence_without_changing_actual_route(self) -> None:
+        os.environ["VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE"] = "true"
+        self._recreate_client()
+
+        image_bytes = io.BytesIO()
+        Image.new("RGB", (320, 180), color="white").save(image_bytes, format="PNG")
+        image_bytes.seek(0)
+
+        response = self.client.post(
+            "/v1/extract",
+            files={"file": ("sample.png", image_bytes.getvalue(), "image/png")},
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertTrue(payload["table_detection"]["document_has_table"])
+        self.assertEqual(payload["table_detection"]["recommended_route"], "ocr_vl_service")
+        self.assertEqual(payload["table_detection"]["actual_route"], "ocr_vl_service")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
@@ -36,7 +36,19 @@ class Settings(BaseSettings):
 
     artifact_root: Path = DEFAULT_ARTIFACT_ROOT
     max_upload_size_mb: int = 25
+    max_sync_pdf_pages: int = 5
+    retry_attempts: int = 1
+    retry_backoff_ms: int = 0
     request_id_prefix: str = "req"
+
+    table_detector_backend: str = "disabled"
+    table_detector_model_name: str = "protonx-models/protonx-table-detector"
+    table_detector_threshold: float = 0.8
+    table_detector_device: str = "auto"
+    table_detector_fail_open: bool = True
+    table_detector_mock_document_has_table: bool = False
+    table_detector_mock_table_score: float = 0.95
+    table_detector_mock_no_table_score: float = 0.05
 
     pipeline_version: str = "v1.5"
     layout_detection_model_name: str | None = None
@@ -90,6 +102,10 @@ class Settings(BaseSettings):
     @property
     def use_doc_preprocessor(self) -> bool:
         return self.use_doc_orientation_classify or self.use_doc_unwarping
+
+    @property
+    def engine_version(self) -> str:
+        return f"PaddleOCR-VL/{self.pipeline_version}"
 
     @model_validator(mode="after")
     def apply_local_model_defaults(self) -> "Settings":
@@ -156,4 +172,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-

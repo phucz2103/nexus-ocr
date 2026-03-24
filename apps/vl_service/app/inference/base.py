@@ -19,12 +19,15 @@ class InferencePage:
     pruned_result: dict[str, Any]
     markdown: dict[str, Any]
     images: dict[str, Any]
+    metrics: dict[str, Any] | None = None
 
 
 @dataclass(slots=True)
 class InferenceRunResult:
     backend: str
     pages: list[InferencePage]
+    processing_duration_ms: int | None = None
+    engine_version: str | None = None
 
 
 def build_model_settings_snapshot(settings: Any) -> dict[str, Any]:
