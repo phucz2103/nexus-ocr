@@ -8,7 +8,16 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 SERVICE_ROOT = Path(__file__).resolve().parents[2]
-WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
+
+
+def resolve_workspace_root() -> Path:
+    for candidate in SERVICE_ROOT.parents:
+        if (candidate / "requirements").exists() and (candidate / "apps").exists():
+            return candidate
+    return SERVICE_ROOT
+
+
+WORKSPACE_ROOT = resolve_workspace_root()
 DEFAULT_ARTIFACT_ROOT = WORKSPACE_ROOT / "artifacts" / "vl_service"
 DEFAULT_V1_VENDOR_ROOT = WORKSPACE_ROOT / "vendor" / "PaddleOCR-VL"
 DEFAULT_V1_LAYOUT_MODEL_DIR = DEFAULT_V1_VENDOR_ROOT / "PP-DocLayoutV2"

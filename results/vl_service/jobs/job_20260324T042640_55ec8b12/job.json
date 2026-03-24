@@ -1,0 +1,117 @@
+{
+  "job_id": "job_20260324T042640_55ec8b12",
+  "status": "succeeded",
+  "status_url": "/v1/extract/jobs/job_20260324T042640_55ec8b12",
+  "created_at": "2026-03-24T04:26:40.607943Z",
+  "updated_at": "2026-03-24T04:28:59.404052Z",
+  "request_id": "req_20260324T042640_a789b41b",
+  "backend": "paddleocr_vl",
+  "original_filename": "text-pdf.pdf",
+  "content_type": "application/pdf",
+  "page_start": null,
+  "page_end": null,
+  "summary": {
+    "pages": 3,
+    "blocks": 9,
+    "tables": 1
+  },
+  "data_info": {
+    "width": null,
+    "height": null,
+    "type": "pdf",
+    "page_count": 3,
+    "pages": [
+      {
+        "page_index": 0,
+        "width": 596,
+        "height": 842
+      },
+      {
+        "page_index": 1,
+        "width": 596,
+        "height": 842
+      },
+      {
+        "page_index": 2,
+        "width": 596,
+        "height": 842
+      }
+    ]
+  },
+  "page_count": 3,
+  "raw_text": "xin chào tất cả các bạn, Minh là..... chào mừng đến với podcast “Save or Slave”, 1 series sẽ giúp bạn hiểu hơn về chủ nghĩa tiêu dùng nhanh. Và ở số đầu tiên mình muốn nói đến vấn đề mua sắm quá đà trong xã hội hiện nay.\n\nNhư chúng ta đã thấy thì việc mua sắm vốn là nhu cầu thông thường của mỗi người nhưng song hành với việc đó thì cũng đi kèm những mặt trái của nó và đó cũng là vấn đề mà trong chủ đề ngày hôm nay chúng mình sẽ đề cập đến. Vậy lý do nào khiến chúng ta trở thành người mua sắm quá đà.?\n\nNhư mọi người cũng đã thấy thì chúng ta đang sống trong một xã hội 4.0 với sự phát triển mạnh mẽ về Internet, cùng với sự nổi lên mạnh mẽ của của các trang thương mại điện tử nên việc mua sắm trở nên dễ dàng hơn bao giờ hết. Quần áo, giày dép, các máy móc thiết bị cũng như toàn bộ các loại hàng hóa có tác dụng làm thỏa mãn nhu cầu con người. Vì thế nếu việc mua sắm khiến bạn cảm thấy dễ chịu thì điều đó hoàn toàn bình thường nhưng việc bạn mua sắm quá mức cần thiết lại là vấn đề khác.\nLiệu bạn có phải một người nghiện mua sắm và dấu hiệu nào để chúng ta biết được mình đang mua sắm quá đà?\n\nMua sắm quá đà là việc chúng ta mua sắm mất kiểm\nsoát, vượt qua cả mức chi tiêu của chúng ta bởi vì chúng ta thường luôn chú tâm vào sự mới lạ của nó chú ko để tâm tới rằng nó đã thực sự cần thiết cho chúng ta bây giờ hay không và vấn đề này thì xảy ra đặc biệt là ở giới trẻ. Thường những người nghiên mua sắm sẽ liên tục dùng tiền của mình để mua những món đồ mình muốn sở hữu, họ mất đi nhận thức về giới hạn của việc bỏ tiền ra mua sắm. Một số người còn bị âm ảnh bởi các sản phẩm, họ lúc nào cũng muốn sở hữu nó hoặc luôn luôn suy nghĩ về nó. Và đi kèm theo đó là Những tác hại mà nó mang lại là rất lớn. Đầu tiên rõ ràng nhất chính là việc\n\nchúng ta sẽ có rất nhiều đồ dùng thừa thái. Bởi vì nếu chúng ta cứ liên tục mua đồ và thậm chí là những đồ có mục đích sử dụng giống nhau thì rất nhanh thôi nhà chúng ta sẽ có rất nhiều đồ dùng mà mình không bao giờ sử dụng đến.\nThứ 2 đó chính là sự ảnh hưởng về kinh tế. Những người nghiện mua sắm thì sẽ chi tiêu rất nhiều vượt mức chi tiêu của họ dẫn đến luôn trong tình trạng hết tiền và đôi khi phải đi vay mượn từ ace họ hàng.Tác hại cuối cùng chính là ảnh hưởng đến tâm lý. vì chi tiêu nhiều quá mà họ lại ko có tiền trả dẫn đến sự ảnh hưởng về tâm trạng khi Họ luôn phải suy nghĩ làm sao để kiếm tiền để trả nợ cho xong.Nặng hơn nữa thì chúng ta có thể để ý rằng, Khi nợ nàn thì sẽ ảnh hưởng đến các mối quan hệ xung quanh, bạn bè xa lánh ace mất niềm tin.ngoài ra còn 1 số tác hại khác về vấn đề này mà chúng ta không ngờ đến.Vậy nên thông qua số podcast lần này mở có một vài lời khuyên để giúp mọi người có thể cải thiện vấn đề này để trở thành một người tiêu dùng thông minh, có mục đích trước khi quyết định mua một món đồ j đó\nTạo một ngân sách: Hãy đưa ra kế hoạch cho chi tiêu hàng\n\ntháng của mình bằng cách tạo ra một ngân sách cụ thể và giới\n\nhạn cho mình về số tiền để chi tiêu cho mỗi loại hàng hóa\n\nhoặc dịch vụ.\nĐặt mục tiêu và ưu tiên: Xác định mục tiêu và ưu tiên chi tiêu của bạn. Hãy xem xét các nhu cầu cần thiết như nhà ở, thực phẩm, y tế, học phí, và sau đó mới đến những nhu cầu khác như giải trí, mua sắm, v.v.\n\n<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Xem lại lối sống: Bạn cũng có thể xem xét lại lối sống của mình để giảm bớt chi tiêu, chẳng hạn như giảm số lần ăn tiệm.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>ăn đồ ăn đóng gói, hạn chế sử dụng điện thoại, tìm kiếm các cách tiết kiệm chi phí trong cuộc sống hàng ngày.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Tránh mua sắm bất cứ khi nào bạn cảm thấy buồn chán hoặc căng thẳng: Nếu bạn mua sắm để giải tỏa cảm xúc thì đó có thể là một dấu hiệu của bệnh tâm lý và cần phải được chữa trị.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Tìm kiếm giải pháp thay thế: Nếu bạn vẫn muốn mua sắm nhưng không muốn chi tiêu nhiều tiền, hãy tìm kiếm các giải pháp thay thế, chẳng hạn như mua hàng giảm giá hoặc mua hàng cũ đã qua sử dụng.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Lưu trữ tiền: Hãy tiết kiệm tiền bằng cách lưu trữ tiền của mình vào tài khoản tiết kiệm hoặc đầu tư vào các khoản đầu tư tiền tệ</td></tr></table>\nMinh hi vọng rằng thông qua những cái lời khuyên mà mk chia sẻ ở đây sẽ mang lại những kiến thức bổ ích cho mọi người giúp mọi người có 1 cái nhìn khách quan hơn về hiện tượng này. Cảm ơn mọi người đã lắng nghe số podcast lần này của mk xin chào tạm biệt và hẹn gặp lại mng trong số tiếp theo",
+  "processing_duration_ms": 138505,
+  "detector_confidence": 0.6699,
+  "engine_version": "PaddleOCR-VL/v1.5",
+  "page_metrics": [
+    {
+      "page_index": 0,
+      "processing_duration_ms": 137795,
+      "detector_confidence": 0.5717,
+      "block_count": 3
+    },
+    {
+      "page_index": 1,
+      "processing_duration_ms": 290,
+      "detector_confidence": 0.8723,
+      "block_count": 4
+    },
+    {
+      "page_index": 2,
+      "processing_duration_ms": 184,
+      "detector_confidence": 0.5657,
+      "block_count": 2
+    }
+  ],
+  "page_selection": {
+    "page_start": 1,
+    "page_end": 3,
+    "selected_page_count": 3,
+    "total_page_count": 3
+  },
+  "table_detection": {
+    "backend": "protonx",
+    "enabled": true,
+    "status": "succeeded",
+    "model_name": "protonx-models/protonx-table-detector",
+    "threshold": 0.8,
+    "document_has_table": false,
+    "processing_duration_ms": 100,
+    "recommended_route": "ocr_service",
+    "actual_route": "ocr_vl_service",
+    "error": null,
+    "pages": [
+      {
+        "page_index": 0,
+        "has_table": false,
+        "score": 0.9999,
+        "label": "no_table"
+      },
+      {
+        "page_index": 1,
+        "has_table": false,
+        "score": 0.9961,
+        "label": "no_table"
+      },
+      {
+        "page_index": 2,
+        "has_table": false,
+        "score": 0.9983,
+        "label": "no_table"
+      }
+    ]
+  },
+  "stage_timings": {
+    "input_prepare_ms": 24,
+    "pdf_render_ms": 105,
+    "table_detection_ms": 100,
+    "ocr_ms": 138505,
+    "result_assembly_ms": 1
+  },
+  "artifacts": {
+    "json_url": "/v1/results/req_20260324T042640_a789b41b/json",
+    "markdown_url": "/v1/results/req_20260324T042640_a789b41b/markdown",
+    "input_url": "/v1/results/req_20260324T042640_a789b41b/input"
+  },
+  "error": null
+}

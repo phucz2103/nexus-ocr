@@ -41,6 +41,12 @@ def _install_paddlex_official_models_shim() -> None:
         if model_dir.exists():
             official_models[model_name] = model_dir
 
+    if not official_models:
+        LOGGER.info(
+            "Skipping PaddleX official_models compatibility shim because no local model cache entries were found"
+        )
+        return
+
     shim = ModuleType(module_name)
     shim.official_models = official_models
     sys.modules[module_name] = shim

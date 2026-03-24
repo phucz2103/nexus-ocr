@@ -1,0 +1,9 @@
+.git
+.gitignore
+.venv
+artifacts
+**/__pycache__
+**/*.pyc
+.vscode
+.codex
+vendor

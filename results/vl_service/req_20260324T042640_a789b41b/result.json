@@ -1,0 +1,1008 @@
+{
+  "layoutParsingResults": [
+    {
+      "prunedResult": {
+        "page_count": 3,
+        "page_index": 0,
+        "width": 1192,
+        "height": 1684,
+        "model_settings": {
+          "use_doc_preprocessor": false,
+          "use_layout_detection": true,
+          "use_chart_recognition": false,
+          "use_seal_recognition": false,
+          "use_ocr_for_image_block": false,
+          "format_block_content": true,
+          "merge_layout_blocks": true,
+          "markdown_ignore_labels": [
+            "number",
+            "footnote",
+            "header",
+            "header_image",
+            "footer",
+            "footer_image",
+            "aside_text"
+          ],
+          "return_layout_polygon_points": true
+        },
+        "parsing_res_list": [
+          {
+            "block_label": "text",
+            "block_content": "xin chào tất cả các bạn, Minh là..... chào mừng đến với podcast “Save or Slave”, 1 series sẽ giúp bạn hiểu hơn về chủ nghĩa tiêu dùng nhanh. Và ở số đầu tiên mình muốn nói đến vấn đề mua sắm quá đà trong xã hội hiện nay.\n\nNhư chúng ta đã thấy thì việc mua sắm vốn là nhu cầu thông thường của mỗi người nhưng song hành với việc đó thì cũng đi kèm những mặt trái của nó và đó cũng là vấn đề mà trong chủ đề ngày hôm nay chúng mình sẽ đề cập đến. Vậy lý do nào khiến chúng ta trở thành người mua sắm quá đà.?\n\nNhư mọi người cũng đã thấy thì chúng ta đang sống trong một xã hội 4.0 với sự phát triển mạnh mẽ về Internet, cùng với sự nổi lên mạnh mẽ của của các trang thương mại điện tử nên việc mua sắm trở nên dễ dàng hơn bao giờ hết. Quần áo, giày dép, các máy móc thiết bị cũng như toàn bộ các loại hàng hóa có tác dụng làm thỏa mãn nhu cầu con người. Vì thế nếu việc mua sắm khiến bạn cảm thấy dễ chịu thì điều đó hoàn toàn bình thường nhưng việc bạn mua sắm quá mức cần thiết lại là vấn đề khác.",
+            "block_bbox": [
+              139,
+              151,
+              1052,
+              866
+            ],
+            "block_id": 0,
+            "block_order": 1,
+            "group_id": 0,
+            "block_polygon_points": [
+              [
+                139,
+                151
+              ],
+              [
+                139,
+                865
+              ],
+              [
+                1040,
+                865
+              ],
+              [
+                1040,
+                151
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Liệu bạn có phải một người nghiện mua sắm và dấu hiệu nào để chúng ta biết được mình đang mua sắm quá đà?\n\nMua sắm quá đà là việc chúng ta mua sắm mất kiểm",
+            "block_bbox": [
+              138,
+              872,
+              1036,
+              990
+            ],
+            "block_id": 1,
+            "block_order": 2,
+            "group_id": 1,
+            "block_polygon_points": [
+              [
+                138.0,
+                872.0
+              ],
+              [
+                1036.0,
+                872.0
+              ],
+              [
+                1036.0,
+                990.0
+              ],
+              [
+                138.0,
+                990.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "soát, vượt qua cả mức chi tiêu của chúng ta bởi vì chúng ta thường luôn chú tâm vào sự mới lạ của nó chú ko để tâm tới rằng nó đã thực sự cần thiết cho chúng ta bây giờ hay không và vấn đề này thì xảy ra đặc biệt là ở giới trẻ. Thường những người nghiên mua sắm sẽ liên tục dùng tiền của mình để mua những món đồ mình muốn sở hữu, họ mất đi nhận thức về giới hạn của việc bỏ tiền ra mua sắm. Một số người còn bị âm ảnh bởi các sản phẩm, họ lúc nào cũng muốn sở hữu nó hoặc luôn luôn suy nghĩ về nó. Và đi kèm theo đó là Những tác hại mà nó mang lại là rất lớn. Đầu tiên rõ ràng nhất chính là việc",
+            "block_bbox": [
+              135,
+              986,
+              1045,
+              1524
+            ],
+            "block_id": 2,
+            "block_order": 3,
+            "group_id": 2,
+            "block_polygon_points": [
+              [
+                135,
+                995
+              ],
+              [
+                135,
+                1523
+              ],
+              [
+                1044,
+                1523
+              ],
+              [
+                1039,
+                986
+              ],
+              [
+                968,
+                986
+              ],
+              [
+                961,
+                1003
+              ],
+              [
+                542,
+                986
+              ]
+            ]
+          }
+        ],
+        "layout_det_res": {
+          "input_path": null,
+          "page_index": null,
+          "boxes": [
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.6407349705696106,
+              "coordinate": [
+                138,
+                144,
+                1044,
+                303
+              ],
+              "order": 1,
+              "polygon_points": [
+                [
+                  138.0,
+                  144.0
+                ],
+                [
+                  1044.0,
+                  144.0
+                ],
+                [
+                  1044.0,
+                  303.0
+                ],
+                [
+                  138.0,
+                  303.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.40692436695098877,
+              "coordinate": [
+                139,
+                151,
+                1052,
+                866
+              ],
+              "order": 2,
+              "polygon_points": [
+                [
+                  139,
+                  151
+                ],
+                [
+                  139,
+                  865
+                ],
+                [
+                  1040,
+                  865
+                ],
+                [
+                  1040,
+                  151
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5683363676071167,
+              "coordinate": [
+                138,
+                307,
+                1048,
+                504
+              ],
+              "order": 3,
+              "polygon_points": [
+                [
+                  138,
+                  316
+                ],
+                [
+                  138,
+                  503
+                ],
+                [
+                  1047,
+                  503
+                ],
+                [
+                  1047,
+                  316
+                ],
+                [
+                  940,
+                  307
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5852241516113281,
+              "coordinate": [
+                138,
+                512,
+                1053,
+                868
+              ],
+              "order": 4,
+              "polygon_points": [
+                [
+                  138.0,
+                  512.0
+                ],
+                [
+                  1053.0,
+                  512.0
+                ],
+                [
+                  1053.0,
+                  868.0
+                ],
+                [
+                  138.0,
+                  868.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.529782772064209,
+              "coordinate": [
+                138,
+                872,
+                1036,
+                990
+              ],
+              "order": 5,
+              "polygon_points": [
+                [
+                  138.0,
+                  872.0
+                ],
+                [
+                  1036.0,
+                  872.0
+                ],
+                [
+                  1036.0,
+                  990.0
+                ],
+                [
+                  138.0,
+                  990.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.6992549300193787,
+              "coordinate": [
+                135,
+                986,
+                1045,
+                1524
+              ],
+              "order": 6,
+              "polygon_points": [
+                [
+                  135,
+                  995
+                ],
+                [
+                  135,
+                  1523
+                ],
+                [
+                  1044,
+                  1523
+                ],
+                [
+                  1039,
+                  986
+                ],
+                [
+                  968,
+                  986
+                ],
+                [
+                  961,
+                  1003
+                ],
+                [
+                  542,
+                  986
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "markdown": {
+        "text": "",
+        "images": {}
+      },
+      "outputImages": {},
+      "inputImage": "/v1/results/req_20260324T042640_a789b41b/input"
+    },
+    {
+      "prunedResult": {
+        "page_count": 3,
+        "page_index": 1,
+        "width": 1192,
+        "height": 1684,
+        "model_settings": {
+          "use_doc_preprocessor": false,
+          "use_layout_detection": true,
+          "use_chart_recognition": false,
+          "use_seal_recognition": false,
+          "use_ocr_for_image_block": false,
+          "format_block_content": true,
+          "merge_layout_blocks": true,
+          "markdown_ignore_labels": [
+            "number",
+            "footnote",
+            "header",
+            "header_image",
+            "footer",
+            "footer_image",
+            "aside_text"
+          ],
+          "return_layout_polygon_points": true
+        },
+        "parsing_res_list": [
+          {
+            "block_label": "text",
+            "block_content": "chúng ta sẽ có rất nhiều đồ dùng thừa thái. Bởi vì nếu chúng ta cứ liên tục mua đồ và thậm chí là những đồ có mục đích sử dụng giống nhau thì rất nhanh thôi nhà chúng ta sẽ có rất nhiều đồ dùng mà mình không bao giờ sử dụng đến.",
+            "block_bbox": [
+              138,
+              143,
+              1043,
+              342
+            ],
+            "block_id": 0,
+            "block_order": 1,
+            "group_id": 0,
+            "block_polygon_points": [
+              [
+                138.0,
+                143.0
+              ],
+              [
+                1043.0,
+                143.0
+              ],
+              [
+                1043.0,
+                342.0
+              ],
+              [
+                138.0,
+                342.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Thứ 2 đó chính là sự ảnh hưởng về kinh tế. Những người nghiện mua sắm thì sẽ chi tiêu rất nhiều vượt mức chi tiêu của họ dẫn đến luôn trong tình trạng hết tiền và đôi khi phải đi vay mượn từ ace họ hàng.Tác hại cuối cùng chính là ảnh hưởng đến tâm lý. vì chi tiêu nhiều quá mà họ lại ko có tiền trả dẫn đến sự ảnh hưởng về tâm trạng khi Họ luôn phải suy nghĩ làm sao để kiếm tiền để trả nợ cho xong.Nặng hơn nữa thì chúng ta có thể để ý rằng, Khi nợ nàn thì sẽ ảnh hưởng đến các mối quan hệ xung quanh, bạn bè xa lánh ace mất niềm tin.ngoài ra còn 1 số tác hại khác về vấn đề này mà chúng ta không ngờ đến.Vậy nên thông qua số podcast lần này mở có một vài lời khuyên để giúp mọi người có thể cải thiện vấn đề này để trở thành một người tiêu dùng thông minh, có mục đích trước khi quyết định mua một món đồ j đó",
+            "block_bbox": [
+              137,
+              356,
+              1039,
+              1086
+            ],
+            "block_id": 1,
+            "block_order": 2,
+            "group_id": 1,
+            "block_polygon_points": [
+              [
+                137.0,
+                356.0
+              ],
+              [
+                1039.0,
+                356.0
+              ],
+              [
+                1039.0,
+                1086.0
+              ],
+              [
+                137.0,
+                1086.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Tạo một ngân sách: Hãy đưa ra kế hoạch cho chi tiêu hàng\n\ntháng của mình bằng cách tạo ra một ngân sách cụ thể và giới\n\nhạn cho mình về số tiền để chi tiêu cho mỗi loại hàng hóa\n\nhoặc dịch vụ.",
+            "block_bbox": [
+              179,
+              1165,
+              1046,
+              1328
+            ],
+            "block_id": 2,
+            "block_order": 3,
+            "group_id": 2,
+            "block_polygon_points": [
+              [
+                179.0,
+                1165.0
+              ],
+              [
+                1046.0,
+                1165.0
+              ],
+              [
+                1046.0,
+                1328.0
+              ],
+              [
+                179.0,
+                1328.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Đặt mục tiêu và ưu tiên: Xác định mục tiêu và ưu tiên chi tiêu của bạn. Hãy xem xét các nhu cầu cần thiết như nhà ở, thực phẩm, y tế, học phí, và sau đó mới đến những nhu cầu khác như giải trí, mua sắm, v.v.",
+            "block_bbox": [
+              176,
+              1331,
+              1021,
+              1497
+            ],
+            "block_id": 3,
+            "block_order": 4,
+            "group_id": 3,
+            "block_polygon_points": [
+              [
+                176.0,
+                1331.0
+              ],
+              [
+                1021.0,
+                1331.0
+              ],
+              [
+                1021.0,
+                1497.0
+              ],
+              [
+                176.0,
+                1497.0
+              ]
+            ]
+          }
+        ],
+        "layout_det_res": {
+          "input_path": null,
+          "page_index": null,
+          "boxes": [
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.9211100339889526,
+              "coordinate": [
+                138,
+                143,
+                1043,
+                342
+              ],
+              "order": 1,
+              "polygon_points": [
+                [
+                  138.0,
+                  143.0
+                ],
+                [
+                  1043.0,
+                  143.0
+                ],
+                [
+                  1043.0,
+                  342.0
+                ],
+                [
+                  138.0,
+                  342.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.9542193412780762,
+              "coordinate": [
+                137,
+                356,
+                1039,
+                1086
+              ],
+              "order": 2,
+              "polygon_points": [
+                [
+                  137.0,
+                  356.0
+                ],
+                [
+                  1039.0,
+                  356.0
+                ],
+                [
+                  1039.0,
+                  1086.0
+                ],
+                [
+                  137.0,
+                  1086.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.7681255340576172,
+              "coordinate": [
+                179,
+                1165,
+                1046,
+                1328
+              ],
+              "order": 3,
+              "polygon_points": [
+                [
+                  179.0,
+                  1165.0
+                ],
+                [
+                  1046.0,
+                  1165.0
+                ],
+                [
+                  1046.0,
+                  1328.0
+                ],
+                [
+                  179.0,
+                  1328.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.8458346128463745,
+              "coordinate": [
+                176,
+                1331,
+                1021,
+                1497
+              ],
+              "order": 4,
+              "polygon_points": [
+                [
+                  176.0,
+                  1331.0
+                ],
+                [
+                  1021.0,
+                  1331.0
+                ],
+                [
+                  1021.0,
+                  1497.0
+                ],
+                [
+                  176.0,
+                  1497.0
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "markdown": {
+        "text": "",
+        "images": {}
+      },
+      "outputImages": {},
+      "inputImage": "/v1/results/req_20260324T042640_a789b41b/input"
+    },
+    {
+      "prunedResult": {
+        "page_count": 3,
+        "page_index": 2,
+        "width": 1192,
+        "height": 1684,
+        "model_settings": {
+          "use_doc_preprocessor": false,
+          "use_layout_detection": true,
+          "use_chart_recognition": false,
+          "use_seal_recognition": false,
+          "use_ocr_for_image_block": false,
+          "format_block_content": true,
+          "merge_layout_blocks": true,
+          "markdown_ignore_labels": [
+            "number",
+            "footnote",
+            "header",
+            "header_image",
+            "footer",
+            "footer_image",
+            "aside_text"
+          ],
+          "return_layout_polygon_points": true
+        },
+        "parsing_res_list": [
+          {
+            "block_label": "table",
+            "block_content": "\n<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Xem lại lối sống: Bạn cũng có thể xem xét lại lối sống của mình để giảm bớt chi tiêu, chẳng hạn như giảm số lần ăn tiệm.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>ăn đồ ăn đóng gói, hạn chế sử dụng điện thoại, tìm kiếm các cách tiết kiệm chi phí trong cuộc sống hàng ngày.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Tránh mua sắm bất cứ khi nào bạn cảm thấy buồn chán hoặc căng thẳng: Nếu bạn mua sắm để giải tỏa cảm xúc thì đó có thể là một dấu hiệu của bệnh tâm lý và cần phải được chữa trị.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Tìm kiếm giải pháp thay thế: Nếu bạn vẫn muốn mua sắm nhưng không muốn chi tiêu nhiều tiền, hãy tìm kiếm các giải pháp thay thế, chẳng hạn như mua hàng giảm giá hoặc mua hàng cũ đã qua sử dụng.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Lưu trữ tiền: Hãy tiết kiệm tiền bằng cách lưu trữ tiền của mình vào tài khoản tiết kiệm hoặc đầu tư vào các khoản đầu tư tiền tệ</td></tr></table>",
+            "block_bbox": [
+              175,
+              141,
+              1049,
+              767
+            ],
+            "block_id": 0,
+            "block_order": null,
+            "group_id": 0,
+            "block_polygon_points": [
+              [
+                175.0,
+                141.0
+              ],
+              [
+                1049.0,
+                141.0
+              ],
+              [
+                1049.0,
+                767.0
+              ],
+              [
+                175.0,
+                767.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Minh hi vọng rằng thông qua những cái lời khuyên mà mk chia sẻ ở đây sẽ mang lại những kiến thức bổ ích cho mọi người giúp mọi người có 1 cái nhìn khách quan hơn về hiện tượng này. Cảm ơn mọi người đã lắng nghe số podcast lần này của mk xin chào tạm biệt và hẹn gặp lại mng trong số tiếp theo",
+            "block_bbox": [
+              137,
+              847,
+              1050,
+              1055
+            ],
+            "block_id": 1,
+            "block_order": 1,
+            "group_id": 1,
+            "block_polygon_points": [
+              [
+                137.0,
+                847.0
+              ],
+              [
+                1050.0,
+                847.0
+              ],
+              [
+                1050.0,
+                1055.0
+              ],
+              [
+                137.0,
+                1055.0
+              ]
+            ]
+          }
+        ],
+        "layout_det_res": {
+          "input_path": null,
+          "page_index": null,
+          "boxes": [
+            {
+              "cls_id": 21,
+              "label": "table",
+              "score": 0.4268032908439636,
+              "coordinate": [
+                175,
+                141,
+                1049,
+                767
+              ],
+              "order": null,
+              "polygon_points": [
+                [
+                  175.0,
+                  141.0
+                ],
+                [
+                  1049.0,
+                  141.0
+                ],
+                [
+                  1049.0,
+                  767.0
+                ],
+                [
+                  175.0,
+                  767.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5654462575912476,
+              "coordinate": [
+                178,
+                143,
+                1045,
+                307
+              ],
+              "order": 1,
+              "polygon_points": [
+                [
+                  178,
+                  143
+                ],
+                [
+                  178,
+                  306
+                ],
+                [
+                  1044,
+                  306
+                ],
+                [
+                  1044,
+                  143
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5466915965080261,
+              "coordinate": [
+                178,
+                309,
+                1043,
+                432
+              ],
+              "order": 2,
+              "polygon_points": [
+                [
+                  178.0,
+                  309.0
+                ],
+                [
+                  1043.0,
+                  309.0
+                ],
+                [
+                  1043.0,
+                  432.0
+                ],
+                [
+                  178.0,
+                  432.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5452607870101929,
+              "coordinate": [
+                178,
+                432,
+                1035,
+                598
+              ],
+              "order": 3,
+              "polygon_points": [
+                [
+                  178.0,
+                  432.0
+                ],
+                [
+                  1035.0,
+                  432.0
+                ],
+                [
+                  1035.0,
+                  598.0
+                ],
+                [
+                  178.0,
+                  598.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.4560513198375702,
+              "coordinate": [
+                180,
+                599,
+                1025,
+                729
+              ],
+              "order": 4,
+              "polygon_points": [
+                [
+                  180.0,
+                  599.0
+                ],
+                [
+                  1025.0,
+                  599.0
+                ],
+                [
+                  1025.0,
+                  729.0
+                ],
+                [
+                  180.0,
+                  729.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.8540012240409851,
+              "coordinate": [
+                137,
+                847,
+                1050,
+                1055
+              ],
+              "order": 5,
+              "polygon_points": [
+                [
+                  137.0,
+                  847.0
+                ],
+                [
+                  1050.0,
+                  847.0
+                ],
+                [
+                  1050.0,
+                  1055.0
+                ],
+                [
+                  137.0,
+                  1055.0
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "markdown": {
+        "text": "",
+        "images": {}
+      },
+      "outputImages": {},
+      "inputImage": "/v1/results/req_20260324T042640_a789b41b/input"
+    }
+  ],
+  "dataInfo": {
+    "width": null,
+    "height": null,
+    "type": "pdf",
+    "page_count": 3,
+    "pages": [
+      {
+        "page_index": 0,
+        "width": 596,
+        "height": 842
+      },
+      {
+        "page_index": 1,
+        "width": 596,
+        "height": 842
+      },
+      {
+        "page_index": 2,
+        "width": 596,
+        "height": 842
+      }
+    ]
+  },
+  "preprocessedImages": [],
+  "pageCount": 3,
+  "rawText": "xin chào tất cả các bạn, Minh là..... chào mừng đến với podcast “Save or Slave”, 1 series sẽ giúp bạn hiểu hơn về chủ nghĩa tiêu dùng nhanh. Và ở số đầu tiên mình muốn nói đến vấn đề mua sắm quá đà trong xã hội hiện nay.\n\nNhư chúng ta đã thấy thì việc mua sắm vốn là nhu cầu thông thường của mỗi người nhưng song hành với việc đó thì cũng đi kèm những mặt trái của nó và đó cũng là vấn đề mà trong chủ đề ngày hôm nay chúng mình sẽ đề cập đến. Vậy lý do nào khiến chúng ta trở thành người mua sắm quá đà.?\n\nNhư mọi người cũng đã thấy thì chúng ta đang sống trong một xã hội 4.0 với sự phát triển mạnh mẽ về Internet, cùng với sự nổi lên mạnh mẽ của của các trang thương mại điện tử nên việc mua sắm trở nên dễ dàng hơn bao giờ hết. Quần áo, giày dép, các máy móc thiết bị cũng như toàn bộ các loại hàng hóa có tác dụng làm thỏa mãn nhu cầu con người. Vì thế nếu việc mua sắm khiến bạn cảm thấy dễ chịu thì điều đó hoàn toàn bình thường nhưng việc bạn mua sắm quá mức cần thiết lại là vấn đề khác.\nLiệu bạn có phải một người nghiện mua sắm và dấu hiệu nào để chúng ta biết được mình đang mua sắm quá đà?\n\nMua sắm quá đà là việc chúng ta mua sắm mất kiểm\nsoát, vượt qua cả mức chi tiêu của chúng ta bởi vì chúng ta thường luôn chú tâm vào sự mới lạ của nó chú ko để tâm tới rằng nó đã thực sự cần thiết cho chúng ta bây giờ hay không và vấn đề này thì xảy ra đặc biệt là ở giới trẻ. Thường những người nghiên mua sắm sẽ liên tục dùng tiền của mình để mua những món đồ mình muốn sở hữu, họ mất đi nhận thức về giới hạn của việc bỏ tiền ra mua sắm. Một số người còn bị âm ảnh bởi các sản phẩm, họ lúc nào cũng muốn sở hữu nó hoặc luôn luôn suy nghĩ về nó. Và đi kèm theo đó là Những tác hại mà nó mang lại là rất lớn. Đầu tiên rõ ràng nhất chính là việc\n\nchúng ta sẽ có rất nhiều đồ dùng thừa thái. Bởi vì nếu chúng ta cứ liên tục mua đồ và thậm chí là những đồ có mục đích sử dụng giống nhau thì rất nhanh thôi nhà chúng ta sẽ có rất nhiều đồ dùng mà mình không bao giờ sử dụng đến.\nThứ 2 đó chính là sự ảnh hưởng về kinh tế. Những người nghiện mua sắm thì sẽ chi tiêu rất nhiều vượt mức chi tiêu của họ dẫn đến luôn trong tình trạng hết tiền và đôi khi phải đi vay mượn từ ace họ hàng.Tác hại cuối cùng chính là ảnh hưởng đến tâm lý. vì chi tiêu nhiều quá mà họ lại ko có tiền trả dẫn đến sự ảnh hưởng về tâm trạng khi Họ luôn phải suy nghĩ làm sao để kiếm tiền để trả nợ cho xong.Nặng hơn nữa thì chúng ta có thể để ý rằng, Khi nợ nàn thì sẽ ảnh hưởng đến các mối quan hệ xung quanh, bạn bè xa lánh ace mất niềm tin.ngoài ra còn 1 số tác hại khác về vấn đề này mà chúng ta không ngờ đến.Vậy nên thông qua số podcast lần này mở có một vài lời khuyên để giúp mọi người có thể cải thiện vấn đề này để trở thành một người tiêu dùng thông minh, có mục đích trước khi quyết định mua một món đồ j đó\nTạo một ngân sách: Hãy đưa ra kế hoạch cho chi tiêu hàng\n\ntháng của mình bằng cách tạo ra một ngân sách cụ thể và giới\n\nhạn cho mình về số tiền để chi tiêu cho mỗi loại hàng hóa\n\nhoặc dịch vụ.\nĐặt mục tiêu và ưu tiên: Xác định mục tiêu và ưu tiên chi tiêu của bạn. Hãy xem xét các nhu cầu cần thiết như nhà ở, thực phẩm, y tế, học phí, và sau đó mới đến những nhu cầu khác như giải trí, mua sắm, v.v.\n\n<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Xem lại lối sống: Bạn cũng có thể xem xét lại lối sống của mình để giảm bớt chi tiêu, chẳng hạn như giảm số lần ăn tiệm.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>ăn đồ ăn đóng gói, hạn chế sử dụng điện thoại, tìm kiếm các cách tiết kiệm chi phí trong cuộc sống hàng ngày.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Tránh mua sắm bất cứ khi nào bạn cảm thấy buồn chán hoặc căng thẳng: Nếu bạn mua sắm để giải tỏa cảm xúc thì đó có thể là một dấu hiệu của bệnh tâm lý và cần phải được chữa trị.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Tìm kiếm giải pháp thay thế: Nếu bạn vẫn muốn mua sắm nhưng không muốn chi tiêu nhiều tiền, hãy tìm kiếm các giải pháp thay thế, chẳng hạn như mua hàng giảm giá hoặc mua hàng cũ đã qua sử dụng.</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>-</td><td style='text-align: center; word-wrap: break-word;'>Lưu trữ tiền: Hãy tiết kiệm tiền bằng cách lưu trữ tiền của mình vào tài khoản tiết kiệm hoặc đầu tư vào các khoản đầu tư tiền tệ</td></tr></table>\nMinh hi vọng rằng thông qua những cái lời khuyên mà mk chia sẻ ở đây sẽ mang lại những kiến thức bổ ích cho mọi người giúp mọi người có 1 cái nhìn khách quan hơn về hiện tượng này. Cảm ơn mọi người đã lắng nghe số podcast lần này của mk xin chào tạm biệt và hẹn gặp lại mng trong số tiếp theo",
+  "processingDurationMs": 138505,
+  "detectorConfidence": 0.6699,
+  "engineVersion": "PaddleOCR-VL/v1.5",
+  "pageMetrics": [
+    {
+      "pageIndex": 0,
+      "processingDurationMs": 137795,
+      "detectorConfidence": 0.5717,
+      "blockCount": 3
+    },
+    {
+      "pageIndex": 1,
+      "processingDurationMs": 290,
+      "detectorConfidence": 0.8723,
+      "blockCount": 4
+    },
+    {
+      "pageIndex": 2,
+      "processingDurationMs": 184,
+      "detectorConfidence": 0.5657,
+      "blockCount": 2
+    }
+  ],
+  "pageSelection": {
+    "pageStart": 1,
+    "pageEnd": 3,
+    "selectedPageCount": 3,
+    "totalPageCount": 3
+  },
+  "tableDetection": {
+    "backend": "protonx",
+    "enabled": true,
+    "status": "succeeded",
+    "modelName": "protonx-models/protonx-table-detector",
+    "threshold": 0.8,
+    "documentHasTable": false,
+    "processingDurationMs": 100,
+    "recommendedRoute": "ocr_service",
+    "actualRoute": "ocr_vl_service",
+    "error": null,
+    "pages": [
+      {
+        "pageIndex": 0,
+        "hasTable": false,
+        "score": 0.9999,
+        "label": "no_table"
+      },
+      {
+        "pageIndex": 1,
+        "hasTable": false,
+        "score": 0.9961,
+        "label": "no_table"
+      },
+      {
+        "pageIndex": 2,
+        "hasTable": false,
+        "score": 0.9983,
+        "label": "no_table"
+      }
+    ]
+  },
+  "stageTimings": {
+    "inputPrepareMs": 24,
+    "pdfRenderMs": 105,
+    "tableDetectionMs": 100,
+    "ocrMs": 138505,
+    "resultAssemblyMs": 1
+  }
+}
