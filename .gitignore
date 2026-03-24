@@ -11,10 +11,13 @@ __pycache__/
 logs/
 tmp/
 artifacts/
+vendor/
+results/
+test.txt
+
 
 # OCR runtime outputs and local data
 *.bin
-*.txt
 *.log
 *.csv
 *.tsv
@@ -40,3 +43,6 @@ artifacts/
 *.xlsx
 *.ppt
 *.pptx
+
+vendor/PaddleOCR-VL/
+
