@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import io
 import os
@@ -25,6 +25,8 @@ class AsyncJobApiTests(unittest.TestCase):
         )
         os.environ["VL_SERVICE_TABLE_DETECTOR_BACKEND"] = "mock"
         os.environ["VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE"] = "false"
+        os.environ["VL_SERVICE_SAVE_ARTIFACT_IMAGES"] = "true"
+        os.environ["VL_SERVICE_GENERATE_MARKDOWN"] = "true"
         os.environ.pop("VL_SERVICE_MAX_SYNC_PDF_PAGES", None)
 
         from app.core.config import get_settings
@@ -44,6 +46,8 @@ class AsyncJobApiTests(unittest.TestCase):
         os.environ.pop("VL_SERVICE_TABLE_DETECTOR_BACKEND", None)
         os.environ.pop("VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE", None)
         os.environ.pop("VL_SERVICE_MAX_SYNC_PDF_PAGES", None)
+        os.environ.pop("VL_SERVICE_SAVE_ARTIFACT_IMAGES", None)
+        os.environ.pop("VL_SERVICE_GENERATE_MARKDOWN", None)
 
         from app.core.config import get_settings
 
@@ -92,6 +96,8 @@ class AsyncJobApiTests(unittest.TestCase):
         self.assertEqual(job_payload["status"], "succeeded")
         self.assertIsNotNone(job_payload["request_id"])
         self.assertEqual(job_payload["summary"]["pages"], 1)
+        self.assertIn("stage_timings", job_payload)
+        self.assertIn("ocr_ms", job_payload["stage_timings"])
         self.assertEqual(job_payload["artifacts"]["json_url"].split("/")[-2], job_payload["request_id"])
 
         result_json_response = self.client.get(job_payload["artifacts"]["json_url"])

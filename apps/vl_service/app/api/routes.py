@@ -81,6 +81,7 @@ def _to_extract_response(result: CompletedExtraction) -> ExtractResponse:
         page_metrics=result.page_metrics,
         page_selection=result.page_selection,
         table_detection=result.table_detection,
+        stage_timings=result.stage_timings,
     )
 
 

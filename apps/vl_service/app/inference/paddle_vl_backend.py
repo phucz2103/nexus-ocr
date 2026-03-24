@@ -24,23 +24,30 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _install_paddlex_official_models_shim() -> None:
-    try:
-        from paddlex.inference.utils.official_models import official_models  # noqa: F401
-
-        LOGGER.info("Using PaddleX official_models registry")
+    module_name = "paddlex.inference.utils.official_models"
+    if module_name in sys.modules:
         return
-    except Exception as exc:
-        module_name = "paddlex.inference.utils.official_models"
-        if module_name in sys.modules:
-            return
 
-        shim = ModuleType(module_name)
-        shim.official_models = {}
-        sys.modules[module_name] = shim
-        LOGGER.warning(
-            "Installed PaddleX official_models compatibility shim because the real registry could not be imported: %s",
-            exc,
-        )
+    official_model_root = Path.home() / ".paddlex" / "official_models"
+    official_models: dict[str, str] = {}
+
+    known_models = {
+        "PP-DocLayoutV3": official_model_root / "PP-DocLayoutV3",
+        "PP-DocLayoutV2": official_model_root / "PP-DocLayoutV2",
+        "PaddleOCR-VL-1.5-0.9B": official_model_root / "PaddleOCR-VL-1.5",
+        "PaddleOCR-VL-0.9B": official_model_root / "PaddleOCR-VL-0.9B",
+    }
+    for model_name, model_dir in known_models.items():
+        if model_dir.exists():
+            official_models[model_name] = model_dir
+
+    shim = ModuleType(module_name)
+    shim.official_models = official_models
+    sys.modules[module_name] = shim
+    LOGGER.info(
+        "Installed PaddleX official_models compatibility shim with %s local entries",
+        len(official_models),
+    )
 
 
 def _install_paddle_inference_compat_shim() -> None:
@@ -108,6 +115,31 @@ def _install_paddle_inference_compat_shim() -> None:
         )
         patched = True
 
+    original_bfloat16_supported = paddle.amp.is_bfloat16_supported
+    if not getattr(original_bfloat16_supported, "_codex_runtime_patch", False):
+        def _safe_is_bfloat16_supported(device=None):
+            try:
+                if device is None:
+                    current_device = paddle.device.get_device()
+                    if isinstance(current_device, str) and current_device.startswith("gpu"):
+                        try:
+                            device_index = int(current_device.split(":", 1)[1])
+                        except Exception:
+                            device_index = 0
+                        return original_bfloat16_supported(paddle.CUDAPlace(device_index))
+                    return original_bfloat16_supported(paddle.CPUPlace())
+                return original_bfloat16_supported(device)
+            except Exception as exc:
+                LOGGER.warning(
+                    "Falling back to float32 because Paddle bfloat16 availability check failed: %s",
+                    exc,
+                )
+                return False
+
+        _safe_is_bfloat16_supported._codex_runtime_patch = True
+        paddle.amp.is_bfloat16_supported = _safe_is_bfloat16_supported
+        patched = True
+
     if patched:
         LOGGER.info("Installed Paddle inference compatibility shim")
 
@@ -125,6 +157,23 @@ def _patch_processor_instance(processor: Any) -> None:
 
     if getattr(processor, "_codex_placeholder_patch", False):
         return
+
+    def _grid_placeholder_count(grid_value: Any, merge_size: int) -> int:
+        if paddle.is_tensor(grid_value):
+            flat_grid = paddle.reshape(grid_value, [-1])
+            if len(flat_grid) < 3:
+                raise ValueError(f"Unexpected image_grid_thw value: {grid_value}")
+            t = int(flat_grid[0].item())
+            h = int(flat_grid[1].item())
+            w = int(flat_grid[2].item())
+        else:
+            flat_grid = np.asarray(grid_value).reshape(-1)
+            if flat_grid.size < 3:
+                raise ValueError(f"Unexpected image_grid_thw value: {grid_value}")
+            t = int(flat_grid[0])
+            h = int(flat_grid[1])
+            w = int(flat_grid[2])
+        return (t * h * w) // merge_size // merge_size
 
     def patched_preprocess(
         self,
@@ -170,14 +219,9 @@ def _patch_processor_instance(processor: Any) -> None:
             )
             image_inputs["pixel_values"] = image_inputs["pixel_values"]
             image_grid_thw = image_inputs["image_grid_thw"]
-            if paddle.is_tensor(image_grid_thw):
-                image_grid_for_text = image_grid_thw.detach().cpu().numpy()
-            else:
-                image_grid_for_text = np.asarray(image_grid_thw)
         else:
             image_inputs = {}
             image_grid_thw = None
-            image_grid_for_text = None
 
         videos_inputs = {}
         video_grid_thw = None
@@ -190,9 +234,10 @@ def _patch_processor_instance(processor: Any) -> None:
             merge_size = int(np.asarray(self.image_processor.merge_size).reshape(-1)[0])
             for i in range(len(text)):
                 while self.image_token in text[i]:
-                    grid = np.asarray(image_grid_for_text[index]).reshape(-1)
-                    placeholder_count = int(np.prod(grid))
-                    placeholder_count = placeholder_count // merge_size // merge_size
+                    placeholder_count = _grid_placeholder_count(
+                        image_grid_thw[index],
+                        merge_size,
+                    )
                     text[i] = text[i].replace(
                         self.image_token,
                         "<|placeholder|>" * placeholder_count,
@@ -219,6 +264,56 @@ def _patch_processor_instance(processor: Any) -> None:
     processor.preprocess = MethodType(patched_preprocess, processor)
     processor._codex_placeholder_patch = True
     LOGGER.info("Applied PaddleOCR-VL processor compatibility patch")
+
+
+def _install_paddlex_runtime_compat_shim() -> None:
+    patched = False
+
+    try:
+        from paddlex.inference.utils import misc as misc_module
+    except Exception as exc:
+        LOGGER.warning(
+            "Could not import PaddleX misc module for runtime compatibility shim: %s",
+            exc,
+        )
+        misc_module = None
+    else:
+        original_misc_check = misc_module.is_bfloat16_available
+        if not getattr(original_misc_check, "_codex_runtime_patch", False):
+            def _safe_is_bfloat16_available(device):
+                try:
+                    return bool(original_misc_check(device))
+                except Exception as exc:
+                    LOGGER.warning(
+                        "Falling back to float32 because PaddleX bfloat16 availability check failed: %s",
+                        exc,
+                    )
+                    return False
+
+            _safe_is_bfloat16_available._codex_runtime_patch = True
+            misc_module.is_bfloat16_available = _safe_is_bfloat16_available
+            patched = True
+
+    try:
+        from paddlex.inference.models.doc_vlm import predictor as predictor_module
+    except Exception as exc:
+        LOGGER.warning(
+            "Could not import PaddleX doc_vlm predictor for runtime compatibility shim: %s",
+            exc,
+        )
+    else:
+        if not getattr(predictor_module.is_bfloat16_available, "_codex_runtime_patch", False):
+            def _safe_predictor_is_bfloat16_available(device):
+                if misc_module is not None:
+                    return misc_module.is_bfloat16_available(device)
+                return False
+
+            _safe_predictor_is_bfloat16_available._codex_runtime_patch = True
+            predictor_module.is_bfloat16_available = _safe_predictor_is_bfloat16_available
+            patched = True
+
+    if patched:
+        LOGGER.info("Installed PaddleX runtime compatibility shim")
 
 
 def _patch_projector_instance(projector: Any) -> None:
@@ -367,6 +462,7 @@ class PaddleOCRVLBackend(InferenceBackend):
                         "PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True"
                     )
 
+                _install_paddlex_official_models_shim()
                 _install_paddle_inference_compat_shim()
 
                 from paddleocr import PaddleOCRVL
@@ -388,6 +484,9 @@ class PaddleOCRVLBackend(InferenceBackend):
         return self._pipeline
 
     def _extract_markdown_payload(self, raw_result: Any) -> dict[str, Any]:
+        if not self._settings.generate_markdown:
+            return {"text": "", "images": {}}
+
         if hasattr(raw_result, "_to_markdown"):
             raw_markdown = raw_result._to_markdown(
                 pretty=self._settings.pretty_markdown,

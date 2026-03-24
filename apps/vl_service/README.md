@@ -1,4 +1,4 @@
-﻿# vl-service
+# vl-service
 
 Standalone API for:
 
@@ -23,6 +23,10 @@ python -m pip install -r requirements/vl_service.txt
 - transient OCR-VL failures are retried `1` extra time by default through `VL_SERVICE_RETRY_ATTEMPTS`.
 - `VL_SERVICE_RETRY_BACKOFF_MS` lets you add a small delay between retries if the runtime is unstable.
 - optional table detection can run before OCR-VL. The current routing still always executes OCR-VL, but the result includes `tableDetection` metadata so you can switch to `ocr-service` later without changing the contract.
+- `VL_SERVICE_SAVE_ARTIFACT_IMAGES=false` skips saving preview/layout artifact images when you only need structured JSON.
+- `VL_SERVICE_GENERATE_MARKDOWN=false` skips markdown generation work and keeps `result.md` empty while preserving the API contract.
+- every extraction now includes `stage_timings` / `stageTimings` for the heavy stages so you can see whether time is going into input prep, PDF rendering, table detection, OCR, or result assembly.
+- CORS is enabled through `VL_SERVICE_CORS_ALLOW_*` settings. By default the service allows all origins, methods, and headers for local integration work.
 
 ## Run
 
@@ -52,12 +56,13 @@ The JSON artifact includes:
 - `pageMetrics`
 - `pageSelection`
 - `tableDetection`
+- `stageTimings`
 
 For PDF uploads:
 
 - `dataInfo` includes `page_count` and per-page sizes
 - `pageSelection` shows which original pages were processed
-- each page in `layoutParsingResults` gets its own `inputImage` preview artifact
+- each page in `layoutParsingResults` gets its own `inputImage` preview artifact when artifact saving is enabled
 - PDFs above the sync page limit are rejected early with a clear error message
 - large PDFs can still run synchronously when `page_start` and `page_end` narrow the request to a small enough slice
 - larger PDFs should move to the async job flow instead of the sync endpoint
@@ -102,6 +107,7 @@ When the job succeeds, the status response includes:
 - `artifacts.markdown_url`
 - `artifacts.input_url`
 - extraction summary and metadata
+- `stage_timings`
 
 ## Retry Behavior
 

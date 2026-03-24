@@ -4,6 +4,7 @@ import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes import router
@@ -41,14 +42,16 @@ async def lifespan(app: FastAPI):
     app.state.job_service = job_service
 
     if settings.preload_model:
-        try:
-            backend.warmup()
-        except Exception:
-            LOGGER.exception("Model warmup failed during startup")
+        # Import torch-based ProtonX first; importing torch after paddle in the
+        # same Windows process can fail with missing DLL errors.
         try:
             table_detector.warmup()
         except Exception:
             LOGGER.exception("Table detector warmup failed during startup")
+        try:
+            backend.warmup()
+        except Exception:
+            LOGGER.exception("Model warmup failed during startup")
 
     try:
         yield
@@ -61,6 +64,13 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(title=settings.app_name, lifespan=lifespan)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_allow_origins,
+        allow_methods=settings.cors_allow_methods,
+        allow_headers=settings.cors_allow_headers,
+        allow_credentials=settings.cors_allow_credentials,
+    )
     app.include_router(router)
 
     @app.exception_handler(ServiceError)

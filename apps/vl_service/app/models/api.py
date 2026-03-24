@@ -79,6 +79,7 @@ class ExtractResponse(BaseModel):
     page_metrics: list[PageMetric]
     page_selection: PageSelection | None = None
     table_detection: TableDetectionResult
+    stage_timings: dict[str, int | None]
 
 
 class ExtractJobResponse(BaseModel):
@@ -99,6 +100,7 @@ class ExtractJobResponse(BaseModel):
     page_metrics: list[PageMetric] | None = None
     page_selection: PageSelection | None = None
     table_detection: TableDetectionResult | None = None
+    stage_timings: dict[str, int | None] | None = None
     artifacts: ArtifactLinks | None = None
     error: str | None = None
 

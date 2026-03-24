@@ -57,6 +57,7 @@ class CompletedExtraction:
     page_metrics: list[dict[str, Any]]
     page_selection: dict[str, Any] | None
     table_detection: dict[str, Any]
+    stage_timings: dict[str, int | None]
 
 
 class ExtractionService:
@@ -89,6 +90,7 @@ class ExtractionService:
                 f"Uploaded file exceeds the {self._settings.max_upload_size_mb} MB limit."
             )
 
+        input_prepare_started_at = perf_counter()
         input_suffix = self._resolve_input_suffix(file)
         request_id = self._generate_request_id()
         paths = self._storage.prepare_request(request_id, input_suffix)
@@ -103,33 +105,64 @@ class ExtractionService:
         )
         if enforce_sync_limit:
             self._validate_sync_input_limits(paths.input_file, data_info, page_selection)
+        input_prepare_ms = max(
+            1,
+            int(round((perf_counter() - input_prepare_started_at) * 1000)),
+        )
 
         selected_page_indices = (
             list(page_selection["selected_page_indices"])
             if page_selection is not None
             else None
         )
-        input_page_images = (
-            self._render_pdf_previews(paths.input_file, selected_page_indices)
-            if data_info["type"] == "pdf"
-            else None
+
+        should_render_pdf_previews = (
+            data_info["type"] == "pdf"
+            and (
+                self._settings.save_artifact_images
+                or self._settings.table_detector_backend != "disabled"
+                or (
+                    page_selection is not None
+                    and page_selection["selected_page_count"]
+                    != page_selection["total_page_count"]
+                )
+            )
         )
-        table_detection_images = (
-            [image.copy() for image in input_page_images]
-            if input_page_images is not None
-            else self._load_image_pages(paths.input_file)
-        )
+
+        pdf_render_ms: int | None = None
+        input_page_images: list[Image.Image] | None = None
+        if should_render_pdf_previews:
+            pdf_render_started_at = perf_counter()
+            input_page_images = self._render_pdf_previews(paths.input_file, selected_page_indices)
+            pdf_render_ms = max(
+                1,
+                int(round((perf_counter() - pdf_render_started_at) * 1000)),
+            )
+
+        table_detection_started_at = perf_counter()
         table_detection_page_indices = (
             list(selected_page_indices)
             if selected_page_indices is not None
             else [0]
         )
+        if self._settings.table_detector_backend == "disabled":
+            table_detection_images: list[Image.Image] = []
+        elif input_page_images is not None:
+            table_detection_images = [image.copy() for image in input_page_images]
+        else:
+            table_detection_images = self._load_image_pages(paths.input_file)
         table_detection = self._detect_tables(
             page_images=table_detection_images,
             page_indices=table_detection_page_indices,
         )
+        table_detection_ms = table_detection.processing_duration_ms
+        if table_detection_ms is None:
+            table_detection_ms = max(
+                1,
+                int(round((perf_counter() - table_detection_started_at) * 1000)),
+            )
 
-        fallback_started_at = perf_counter()
+        ocr_started_at = perf_counter()
         inference_result, result_page_indices = self._extract_document_with_retry(
             paths.input_file,
             data_info,
@@ -140,10 +173,18 @@ class ExtractionService:
         if processing_duration_ms is None:
             processing_duration_ms = max(
                 1,
-                int(round((perf_counter() - fallback_started_at) * 1000)),
+                int(round((perf_counter() - ocr_started_at) * 1000)),
             )
         engine_version = inference_result.engine_version or self._settings.engine_version
 
+        result_assembly_started_at = perf_counter()
+        stage_timings = {
+            "input_prepare_ms": input_prepare_ms,
+            "pdf_render_ms": pdf_render_ms,
+            "table_detection_ms": table_detection_ms,
+            "ocr_ms": processing_duration_ms,
+            "result_assembly_ms": None,
+        }
         (
             result_json,
             result_markdown,
@@ -160,7 +201,13 @@ class ExtractionService:
             result_page_indices=result_page_indices,
             page_selection=page_selection,
             table_detection=table_detection,
+            stage_timings=stage_timings,
         )
+        stage_timings["result_assembly_ms"] = max(
+            1,
+            int(round((perf_counter() - result_assembly_started_at) * 1000)),
+        )
+        result_json["stageTimings"] = self._to_json_stage_timings(stage_timings)
 
         self._storage.write_json(paths.result_json, result_json)
         self._storage.write_text(paths.result_markdown, result_markdown)
@@ -185,6 +232,7 @@ class ExtractionService:
                 else None
             ),
             table_detection=self._to_response_table_detection(table_detection),
+            stage_timings=self._to_response_stage_timings(stage_timings),
         )
 
     def load_result_json(self, request_id: str) -> dict[str, Any]:
@@ -301,6 +349,7 @@ class ExtractionService:
         result_page_indices: list[int] | None,
         page_selection: dict[str, Any] | None,
         table_detection: TableDetectionResult,
+        stage_timings: dict[str, int | None],
     ) -> tuple[dict[str, Any], str, str, float | None, list[dict[str, Any]]]:
         if not pages:
             raise InferenceFailedError("Inference produced no pages.")
@@ -342,8 +391,8 @@ class ExtractionService:
             )
 
             page_markdown = {
-                "text": page.markdown.get("text", ""),
-                "images": markdown_image_urls,
+                "text": (page.markdown.get("text", "") if self._settings.generate_markdown else ""),
+                "images": (markdown_image_urls if self._settings.generate_markdown else {}),
             }
             layout_results.append(
                 {
@@ -355,9 +404,10 @@ class ExtractionService:
             )
             preprocessed_images.extend(page_preprocessed_images)
 
-            markdown_text = page_markdown["text"].strip()
-            if markdown_text:
-                markdown_pages.append(markdown_text)
+            if self._settings.generate_markdown:
+                markdown_text = page_markdown["text"].strip()
+                if markdown_text:
+                    markdown_pages.append(markdown_text)
 
             page_raw_text = self._extract_page_raw_text(page_pruned_result, page_markdown)
             if page_raw_text:
@@ -370,9 +420,11 @@ class ExtractionService:
             )
             page_metrics.append(page_metric)
 
-        result_markdown = "\n\n---\n\n".join(markdown_pages).strip()
-        if result_markdown:
-            result_markdown += "\n"
+        result_markdown = ""
+        if self._settings.generate_markdown:
+            result_markdown = "\n\n---\n\n".join(markdown_pages).strip()
+            if result_markdown:
+                result_markdown += "\n"
 
         raw_text = "\n\n".join(raw_text_pages).strip()
         detector_confidence = self._aggregate_detector_confidence(page_metrics)
@@ -393,6 +445,7 @@ class ExtractionService:
                 else None
             ),
             "tableDetection": self._to_json_table_detection(table_detection),
+            "stageTimings": self._to_json_stage_timings(stage_timings),
         }
 
         return result_json, result_markdown, raw_text, detector_confidence, page_metrics
@@ -407,7 +460,11 @@ class ExtractionService:
     ) -> tuple[str, dict[str, str], list[str], dict[str, str]]:
         output_images: dict[str, str] = {}
         preprocessed_images: list[str] = []
+        markdown_image_urls: dict[str, str] = {}
         input_image_url = self._input_url(request_id)
+
+        if not self._settings.save_artifact_images:
+            return input_image_url, output_images, preprocessed_images, markdown_image_urls
 
         if input_page_image is not None:
             artifact_name = self._storage.save_image_artifact(
@@ -441,7 +498,9 @@ class ExtractionService:
             else:
                 output_images[image_key] = artifact_url
 
-        markdown_image_urls: dict[str, str] = {}
+        if not self._settings.generate_markdown:
+            return input_image_url, output_images, preprocessed_images, markdown_image_urls
+
         for markdown_key, markdown_value in page.markdown.get("images", {}).items():
             artifact_name = self._storage.save_image_artifact(
                 request_id,
@@ -564,6 +623,30 @@ class ExtractionService:
             "pageEnd": page_selection["page_end"],
             "selectedPageCount": page_selection["selected_page_count"],
             "totalPageCount": page_selection["total_page_count"],
+        }
+
+    def _to_response_stage_timings(
+        self,
+        stage_timings: dict[str, int | None],
+    ) -> dict[str, int | None]:
+        return {
+            "input_prepare_ms": stage_timings.get("input_prepare_ms"),
+            "pdf_render_ms": stage_timings.get("pdf_render_ms"),
+            "table_detection_ms": stage_timings.get("table_detection_ms"),
+            "ocr_ms": stage_timings.get("ocr_ms"),
+            "result_assembly_ms": stage_timings.get("result_assembly_ms"),
+        }
+
+    def _to_json_stage_timings(
+        self,
+        stage_timings: dict[str, int | None],
+    ) -> dict[str, int | None]:
+        return {
+            "inputPrepareMs": stage_timings.get("input_prepare_ms"),
+            "pdfRenderMs": stage_timings.get("pdf_render_ms"),
+            "tableDetectionMs": stage_timings.get("table_detection_ms"),
+            "ocrMs": stage_timings.get("ocr_ms"),
+            "resultAssemblyMs": stage_timings.get("result_assembly_ms"),
         }
 
     def _read_input_info(self, input_path: Path) -> dict[str, Any]:

@@ -82,6 +82,7 @@ class AsyncJobService:
             "page_metrics": None,
             "page_selection": None,
             "table_detection": None,
+            "stage_timings": None,
             "artifacts": None,
             "error": None,
         }
@@ -153,6 +154,7 @@ class AsyncJobService:
                     page_metrics=result.page_metrics,
                     page_selection=result.page_selection,
                     table_detection=result.table_detection,
+                    stage_timings=result.stage_timings,
                     artifacts={
                         "json_url": result.json_url,
                         "markdown_url": result.markdown_url,

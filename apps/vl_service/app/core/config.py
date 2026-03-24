@@ -28,6 +28,10 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     host: str = "0.0.0.0"
     port: int = 8100
+    cors_allow_origins: list[str] = Field(default_factory=lambda: ["*"])
+    cors_allow_methods: list[str] = Field(default_factory=lambda: ["*"])
+    cors_allow_headers: list[str] = Field(default_factory=lambda: ["*"])
+    cors_allow_credentials: bool = False
 
     backend: str = "paddleocr_vl"
     preload_model: bool = False
@@ -40,6 +44,8 @@ class Settings(BaseSettings):
     retry_attempts: int = 1
     retry_backoff_ms: int = 0
     request_id_prefix: str = "req"
+    save_artifact_images: bool = True
+    generate_markdown: bool = True
 
     table_detector_backend: str = "disabled"
     table_detector_model_name: str = "protonx-models/protonx-table-detector"
@@ -90,9 +96,15 @@ class Settings(BaseSettings):
             return None
         return Path(value)
 
-    @field_validator("markdown_ignore_labels", mode="before")
+    @field_validator(
+        "cors_allow_origins",
+        "cors_allow_methods",
+        "cors_allow_headers",
+        "markdown_ignore_labels",
+        mode="before",
+    )
     @classmethod
-    def normalize_markdown_ignore_labels(
+    def normalize_csv_list(
         cls, value: str | list[str] | tuple[str, ...]
     ) -> list[str]:
         if isinstance(value, str):

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import io
 import os
@@ -24,6 +24,8 @@ class ExtractApiTests(unittest.TestCase):
         )
         os.environ["VL_SERVICE_TABLE_DETECTOR_BACKEND"] = "mock"
         os.environ["VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE"] = "false"
+        os.environ["VL_SERVICE_SAVE_ARTIFACT_IMAGES"] = "true"
+        os.environ["VL_SERVICE_GENERATE_MARKDOWN"] = "true"
         os.environ.pop("VL_SERVICE_MAX_SYNC_PDF_PAGES", None)
 
         from app.core.config import get_settings
@@ -43,6 +45,8 @@ class ExtractApiTests(unittest.TestCase):
         os.environ.pop("VL_SERVICE_TABLE_DETECTOR_BACKEND", None)
         os.environ.pop("VL_SERVICE_TABLE_DETECTOR_MOCK_DOCUMENT_HAS_TABLE", None)
         os.environ.pop("VL_SERVICE_MAX_SYNC_PDF_PAGES", None)
+        os.environ.pop("VL_SERVICE_SAVE_ARTIFACT_IMAGES", None)
+        os.environ.pop("VL_SERVICE_GENERATE_MARKDOWN", None)
 
         from app.core.config import get_settings
 
@@ -70,6 +74,19 @@ class ExtractApiTests(unittest.TestCase):
         pdf_bytes.seek(0)
         return pdf_bytes
 
+    def test_cors_preflight_allows_cross_origin_post(self) -> None:
+        response = self.client.options(
+            "/v1/extract",
+            headers={
+                "Origin": "http://localhost:3000",
+                "Access-Control-Request-Method": "POST",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.headers.get("access-control-allow-origin"), "*")
+        self.assertIn("POST", response.headers.get("access-control-allow-methods", ""))
+
     def test_extract_creates_json_and_markdown_artifacts(self) -> None:
         image_bytes = io.BytesIO()
         Image.new("RGB", (320, 180), color="white").save(image_bytes, format="PNG")
@@ -90,6 +107,8 @@ class ExtractApiTests(unittest.TestCase):
         self.assertIsNotNone(payload["processing_duration_ms"])
         self.assertIsNotNone(payload["engine_version"])
         self.assertEqual(len(payload["page_metrics"]), 1)
+        self.assertIn("stage_timings", payload)
+        self.assertIn("ocr_ms", payload["stage_timings"])
         self.assertEqual(payload["table_detection"]["backend"], "mock")
         self.assertFalse(payload["table_detection"]["document_has_table"])
         self.assertEqual(payload["table_detection"]["recommended_route"], "ocr_service")
@@ -110,6 +129,8 @@ class ExtractApiTests(unittest.TestCase):
         self.assertIn("processingDurationMs", result_json)
         self.assertIn("engineVersion", result_json)
         self.assertEqual(len(result_json["pageMetrics"]), 1)
+        self.assertIn("stageTimings", result_json)
+        self.assertIn("ocrMs", result_json["stageTimings"])
         self.assertIn("tableDetection", result_json)
         self.assertFalse(result_json["tableDetection"]["documentHasTable"])
         self.assertEqual(result_json["tableDetection"]["recommendedRoute"], "ocr_service")
@@ -280,6 +301,46 @@ class ExtractApiTests(unittest.TestCase):
         self.assertTrue(payload["table_detection"]["document_has_table"])
         self.assertEqual(payload["table_detection"]["recommended_route"], "ocr_vl_service")
         self.assertEqual(payload["table_detection"]["actual_route"], "ocr_vl_service")
+
+    def test_extract_can_disable_markdown_and_artifact_images(self) -> None:
+        os.environ["VL_SERVICE_SAVE_ARTIFACT_IMAGES"] = "false"
+        os.environ["VL_SERVICE_GENERATE_MARKDOWN"] = "false"
+        self._recreate_client()
+
+        image_bytes = io.BytesIO()
+        Image.new("RGB", (320, 180), color="white").save(image_bytes, format="PNG")
+        image_bytes.seek(0)
+
+        response = self.client.post(
+            "/v1/extract",
+            files={"file": ("sample.png", image_bytes.getvalue(), "image/png")},
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        request_id = payload["request_id"]
+        self.assertIsNone(payload["stage_timings"]["pdf_render_ms"])
+        self.assertIn("result_assembly_ms", payload["stage_timings"])
+        self.assertIn("Mock extraction", payload["raw_text"])
+
+        result_json = self.client.get(payload["artifacts"]["json_url"]).json()
+        self.assertEqual(result_json["layoutParsingResults"][0]["outputImages"], {})
+        self.assertEqual(result_json["layoutParsingResults"][0]["markdown"]["text"], "")
+        self.assertEqual(result_json["layoutParsingResults"][0]["markdown"]["images"], {})
+        self.assertEqual(result_json["preprocessedImages"], [])
+        self.assertEqual(
+            result_json["layoutParsingResults"][0]["inputImage"],
+            f"/v1/results/{request_id}/input",
+        )
+        self.assertIn("stageTimings", result_json)
+        self.assertIn("resultAssemblyMs", result_json["stageTimings"])
+
+        markdown_response = self.client.get(payload["artifacts"]["markdown_url"])
+        self.assertEqual(markdown_response.status_code, 200, markdown_response.text)
+        self.assertEqual(markdown_response.text, "")
+
+        artifact_root = Path(os.environ["VL_SERVICE_ARTIFACT_ROOT"]) / request_id / "images"
+        self.assertEqual(list(artifact_root.iterdir()), [])
 
 
 if __name__ == "__main__":
