@@ -1,4 +1,4 @@
-# vl-service
+﻿# vl-service
 
 Standalone API for:
 
@@ -6,7 +6,7 @@ Standalone API for:
 - running PaddleOCR-VL or the mock backend
 - generating `result.json`
 - generating `result.md`
-- serving generated artifacts over HTTP
+- serving generated results over HTTP
 - creating async OCR jobs for long-running processing
 
 ## Install
@@ -133,3 +133,4 @@ When the job succeeds, the status response includes:
 - If the service process restarts, queued or processing jobs are not resumed automatically.
 - Very large PDFs should move to a real external queue later instead of the synchronous API or in-process worker.
 - The real backend still depends on the local `paddle` and `paddlex` native stack behaving correctly on this machine.
+

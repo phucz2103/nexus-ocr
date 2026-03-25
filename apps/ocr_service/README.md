@@ -1,21 +1,28 @@
-# ocr-service
+﻿# ocr-service
 
 Standalone API for:
 
-- uploading one image
+- uploading one image or PDF
 - running PaddleOCR or the mock backend
 - generating `result.json`
 - generating `result.md`
-- serving generated artifacts over HTTP
+- serving generated results over HTTP
+- synchronous and async extraction flows
 
-## Model Choice
+## Quality Notes
 
-The default real backend is tuned to stay on the PP-OCRv5 family while favoring document accuracy:
+The safest default for Vietnamese text quality is to let PaddleOCR choose models from:
 
-- detection: `PP-OCRv5_server_det`
-- recognition: `latin_PP-OCRv5_mobile_rec`
+- `OCR_SERVICE_PREFERRED_LANG=vi`
+- `OCR_SERVICE_OCR_VERSION=PP-OCRv5`
 
-This keeps the higher-accuracy server detector while pairing it with the PP-OCRv5 Latin-script multilingual recognizer, which is the closest PP-OCRv5 fit for Vietnamese and English text documents.
+Avoid forcing `OCR_SERVICE_TEXT_RECOGNITION_MODEL_NAME=latin_PP-OCRv5_mobile_rec` unless you specifically want a Latin-only recognition path, because it can degrade Vietnamese output quality.
+
+Recommended quality-related defaults:
+
+- `OCR_SERVICE_USE_TEXTLINE_ORIENTATION=true`
+- `OCR_SERVICE_PDF_RENDER_SCALE=2.5`
+- keep explicit text model names unset unless you have validated a better pair
 
 ## Install
 
@@ -26,7 +33,7 @@ python -m pip install -r requirements/ocr_service.txt
 ## Run
 
 ```powershell
-cd E:\ocr\local-ocr-platform\apps\ocr_service
+cd E:\Nexus project\ocr\apps\ocr_service
 python -m uvicorn app.main:app --host 127.0.0.1 --port 8200
 ```
 
@@ -36,3 +43,4 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8200
 $env:OCR_SERVICE_BACKEND='mock'
 python -m unittest discover -s apps/ocr_service/tests -p "test_*.py"
 ```
+

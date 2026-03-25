@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import logging
 from contextlib import asynccontextmanager
@@ -11,6 +11,7 @@ from app.core.config import get_settings
 from app.core.errors import ServiceError
 from app.inference.factory import build_inference_backend
 from app.services.extraction import ExtractionService
+from app.services.jobs import AsyncJobService
 from app.services.storage import StorageService
 
 
@@ -28,11 +29,13 @@ async def lifespan(app: FastAPI):
     storage = StorageService(settings)
     backend = build_inference_backend(settings)
     extraction_service = ExtractionService(settings, storage, backend)
+    job_service = AsyncJobService(settings, storage, extraction_service)
 
     app.state.settings = settings
     app.state.storage = storage
     app.state.inference_backend = backend
     app.state.extraction_service = extraction_service
+    app.state.job_service = job_service
 
     if settings.preload_model:
         try:
@@ -43,6 +46,7 @@ async def lifespan(app: FastAPI):
     try:
         yield
     finally:
+        job_service.close()
         backend.close()
 
 

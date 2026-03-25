@@ -18,7 +18,7 @@ def resolve_workspace_root() -> Path:
 
 
 WORKSPACE_ROOT = resolve_workspace_root()
-DEFAULT_ARTIFACT_ROOT = WORKSPACE_ROOT / "artifacts" / "vl_service"
+DEFAULT_ARTIFACT_ROOT = WORKSPACE_ROOT / "results" / "vl_service"
 DEFAULT_V1_VENDOR_ROOT = WORKSPACE_ROOT / "vendor" / "PaddleOCR-VL"
 DEFAULT_V1_LAYOUT_MODEL_DIR = DEFAULT_V1_VENDOR_ROOT / "PP-DocLayoutV2"
 

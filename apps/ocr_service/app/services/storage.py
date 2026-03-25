@@ -35,7 +35,7 @@ class StorageService:
     def prepare_request(self, request_id: str, input_suffix: str) -> RequestPaths:
         request_dir = self._root / request_id
         images_dir = request_dir / "images"
-        images_dir.mkdir(parents=True, exist_ok=True)
+        request_dir.mkdir(parents=True, exist_ok=True)
         return RequestPaths(
             request_id=request_id,
             request_dir=request_dir,

@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
@@ -18,7 +18,7 @@ def resolve_workspace_root() -> Path:
 
 
 WORKSPACE_ROOT = resolve_workspace_root()
-DEFAULT_ARTIFACT_ROOT = WORKSPACE_ROOT / "artifacts" / "ocr_service"
+DEFAULT_ARTIFACT_ROOT = WORKSPACE_ROOT / "results" / "ocr_service"
 
 
 class Settings(BaseSettings):
@@ -42,13 +42,17 @@ class Settings(BaseSettings):
 
     artifact_root: Path = DEFAULT_ARTIFACT_ROOT
     max_upload_size_mb: int = 25
+    max_sync_pdf_pages: int = 5
     request_id_prefix: str = "req"
+    save_artifact_images: bool = False
+    generate_markdown: bool = False
 
     preferred_lang: str = "vi"
     ocr_version: str = "PP-OCRv5"
-    text_detection_model_name: str | None = "PP-OCRv5_server_det"
+    pdf_render_scale: float = 2.5
+    text_detection_model_name: str | None = None
     text_detection_model_dir: Path | None = None
-    text_recognition_model_name: str | None = "latin_PP-OCRv5_mobile_rec"
+    text_recognition_model_name: str | None = None
     text_recognition_model_dir: Path | None = None
     doc_orientation_classify_model_name: str | None = None
     doc_orientation_classify_model_dir: Path | None = None
