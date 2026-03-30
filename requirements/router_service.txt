@@ -1,0 +1,13 @@
+﻿fastapi==0.135.1
+uvicorn==0.42.0
+pydantic-settings==2.13.1
+python-multipart==0.0.22
+Pillow>=10.0.0
+pypdfium2
+torch
+torchvision
+huggingface_hub
+paddleocr
+paddlex[ocr]
+vietocr
+

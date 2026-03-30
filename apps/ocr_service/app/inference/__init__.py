@@ -1,1 +1,0 @@
-"""Inference backends for ocr-service."""

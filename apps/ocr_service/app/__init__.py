@@ -1,1 +1,0 @@
-"""ocr-service application package."""

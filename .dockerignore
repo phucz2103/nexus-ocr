@@ -1,7 +1,9 @@
-.git
+﻿.git
 .gitignore
 .venv
 artifacts
+results
+apps/router_service/.artifacts
 **/__pycache__
 **/*.pyc
 .vscode

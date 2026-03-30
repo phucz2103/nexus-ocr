@@ -1,0 +1,2268 @@
+{
+  "layoutParsingResults": [
+    {
+      "prunedResult": {
+        "page_count": 1,
+        "page_index": 0,
+        "width": 1190,
+        "height": 1684,
+        "model_settings": {
+          "backend": "paddleocr_vl",
+          "use_doc_preprocessor": false,
+          "use_textline_orientation": false,
+          "ocr_version": null,
+          "preferred_lang": null,
+          "text_detection_model_name": null,
+          "text_recognition_model_name": null,
+          "text_det_limit_side_len": null,
+          "text_det_limit_type": null,
+          "text_rec_score_thresh": null,
+          "return_word_box": null,
+          "pipeline_version": "v1.5",
+          "use_layout_detection": true,
+          "use_chart_recognition": false,
+          "use_seal_recognition": false,
+          "use_ocr_for_image_block": false,
+          "format_block_content": true,
+          "merge_layout_blocks": true,
+          "vietocr_config_name": null,
+          "vietocr_weights": null,
+          "vietocr_device": null,
+          "vietocr_beamsearch": null,
+          "vietocr_fallback_to_paddle_recognition": null
+        },
+        "parsing_res_list": [
+          {
+            "block_label": "number",
+            "block_content": "2",
+            "block_bbox": [
+              606,
+              14,
+              623,
+              34
+            ],
+            "block_id": 0,
+            "block_order": null,
+            "group_id": 0,
+            "block_polygon_points": [
+              [
+                606.0,
+                14.0
+              ],
+              [
+                622.0,
+                14.0
+              ],
+              [
+                622.0,
+                33.0
+              ],
+              [
+                606.0,
+                33.0
+              ]
+            ]
+          },
+          {
+            "block_label": "header",
+            "block_content": "Mã số BHXH: 9712306688",
+            "block_bbox": [
+              747,
+              32,
+              1041,
+              60
+            ],
+            "block_id": 1,
+            "block_order": null,
+            "group_id": 1,
+            "block_polygon_points": [
+              [
+                747.0,
+                32.0
+              ],
+              [
+                1041.0,
+                32.0
+              ],
+              [
+                1041.0,
+                60.0
+              ],
+              [
+                747.0,
+                60.0
+              ]
+            ]
+          },
+          {
+            "block_label": "table",
+            "block_content": "\n<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>1</td><td style='text-align: center; word-wrap: break-word;'>2</td><td style='text-align: center; word-wrap: break-word;'>3</td><td style='text-align: center; word-wrap: break-word;'>4</td><td style='text-align: center; word-wrap: break-word;'>5</td><td style='text-align: center; word-wrap: break-word;'>6</td><td style='text-align: center; word-wrap: break-word;'>7</td><td style='text-align: center; word-wrap: break-word;'>8</td><td style='text-align: center; word-wrap: break-word;'>9</td><td style='text-align: center; word-wrap: break-word;'>10</td><td style='text-align: center; word-wrap: break-word;'>11</td><td style='text-align: center; word-wrap: break-word;'>12</td><td style='text-align: center; word-wrap: break-word;'>13</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>05/2023</td><td style='text-align: center; word-wrap: break-word;'>09/2025</td><td style='text-align: center; word-wrap: break-word;'>Thiếu tá NLL1, Trợ lý Quân lực, Ban CHQS huyện Hàm Thuận Nam, Bộ CHQS tinh Bình Thuận, Quân khu 7</td><td style='text-align: center; word-wrap: break-word;'>2</td><td style='text-align: center; word-wrap: break-word;'>5</td><td style='text-align: center; word-wrap: break-word;'>6,40</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'>23%</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td colspan=\"3\">Đóng BHXH một lần</td><td style='text-align: center; word-wrap: break-word;'>0</td><td style='text-align: center; word-wrap: break-word;'>0</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td colspan=\"3\">TỔNG CỘNG</td><td style='text-align: center; word-wrap: break-word;'>23</td><td style='text-align: center; word-wrap: break-word;'>7</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr></table>",
+            "block_bbox": [
+              67,
+              62,
+              1159,
+              283
+            ],
+            "block_id": 2,
+            "block_order": null,
+            "group_id": 2,
+            "block_polygon_points": [
+              [
+                67.0,
+                62.0
+              ],
+              [
+                1159.0,
+                62.0
+              ],
+              [
+                1159.0,
+                283.0
+              ],
+              [
+                67.0,
+                283.0
+              ]
+            ]
+          },
+          {
+            "block_label": "paragraph_title",
+            "block_content": "### II. CHẾ ĐỘ HỪU TRÍ CỦA ĐỒNG CHÍ NGUYỄN VIỆT TƯỢNG",
+            "block_bbox": [
+              138,
+              289,
+              865,
+              322
+            ],
+            "block_id": 3,
+            "block_order": 1,
+            "group_id": 3,
+            "block_polygon_points": [
+              [
+                138.0,
+                289.0
+              ],
+              [
+                865.0,
+                289.0
+              ],
+              [
+                865.0,
+                322.0
+              ],
+              [
+                138.0,
+                322.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "1. Thời gian đóng BHXH được tính hướng lương hưu tính đến ngày 30 tháng 09 năm 2025 bằng",
+            "block_bbox": [
+              143,
+              326,
+              1149,
+              357
+            ],
+            "block_id": 4,
+            "block_order": 2,
+            "group_id": 4,
+            "block_polygon_points": [
+              [
+                143.0,
+                326.0
+              ],
+              [
+                1149.0,
+                326.0
+              ],
+              [
+                1149.0,
+                357.0
+              ],
+              [
+                143.0,
+                357.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "23 năm 07 tháng; trong đó có 23 năm 07 tháng đóng BHXH bắt buộc.",
+            "block_bbox": [
+              138,
+              358,
+              876,
+              388
+            ],
+            "block_id": 5,
+            "block_order": 3,
+            "group_id": 5,
+            "block_polygon_points": [
+              [
+                138.0,
+                358.0
+              ],
+              [
+                876.0,
+                358.0
+              ],
+              [
+                876.0,
+                388.0
+              ],
+              [
+                138.0,
+                388.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "- Tiền lương tháng liền kề trước khi nghĩ hưu: 18.420.480 đồng",
+            "block_bbox": [
+              137,
+              388,
+              811,
+              420
+            ],
+            "block_id": 6,
+            "block_order": 4,
+            "group_id": 6,
+            "block_polygon_points": [
+              [
+                137.0,
+                388.0
+              ],
+              [
+                811.0,
+                388.0
+              ],
+              [
+                811.0,
+                420.0
+              ],
+              [
+                137.0,
+                420.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "- Số tháng nghỉ hữu trước tuổi, từ đủ 5 năm trở lên: 105 tháng",
+            "block_bbox": [
+              137,
+              421,
+              796,
+              452
+            ],
+            "block_id": 7,
+            "block_order": 5,
+            "group_id": 7,
+            "block_polygon_points": [
+              [
+                137.0,
+                421.0
+              ],
+              [
+                796.0,
+                421.0
+              ],
+              [
+                796.0,
+                452.0
+              ],
+              [
+                137.0,
+                452.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "2. Mức bình quân tiến lương, thu nhập tháng để tính hướng chế độ hưu trí: 16.984.744 đồng",
+            "block_bbox": [
+              138,
+              454,
+              1106,
+              485
+            ],
+            "block_id": 8,
+            "block_order": 6,
+            "group_id": 8,
+            "block_polygon_points": [
+              [
+                138.0,
+                454.0
+              ],
+              [
+                1106.0,
+                454.0
+              ],
+              [
+                1106.0,
+                485.0
+              ],
+              [
+                138.0,
+                485.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "- Từ tháng 10/2017 đến tháng 04/2019 là 19 tháng; hệ số 5,40; thâm niên nghề 17%: 2.340.000 x 5,40 x 1,17 x 19 tháng = 280.898.280 đồng",
+            "block_bbox": [
+              141,
+              485,
+              1022,
+              541
+            ],
+            "block_id": 9,
+            "block_order": 7,
+            "group_id": 9,
+            "block_polygon_points": [
+              [
+                141.0,
+                485.0
+              ],
+              [
+                1022.0,
+                485.0
+              ],
+              [
+                1022.0,
+                541.0
+              ],
+              [
+                141.0,
+                541.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "- Từ tháng 05/2019 đến tháng 04/2023 là 48 tháng; hệ số 6,00; thâm niên nghề 21%: 2.340.000 x 6 x 1,21 x 48 tháng = 815.443.200 đồng",
+            "block_bbox": [
+              139,
+              541,
+              1026,
+              599
+            ],
+            "block_id": 10,
+            "block_order": 8,
+            "group_id": 10,
+            "block_polygon_points": [
+              [
+                139.0,
+                541.0
+              ],
+              [
+                1026.0,
+                541.0
+              ],
+              [
+                1026.0,
+                599.0
+              ],
+              [
+                139.0,
+                599.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "- Từ tháng 05/2023 đến tháng 09/2025 là 29 tháng; hệ số 6,40; thâm niên nghề 23%: 2.340.000 x 6,40 x 1,23 x 29 tháng = 534.193.920 đồng",
+            "block_bbox": [
+              141,
+              600,
+              1026,
+              656
+            ],
+            "block_id": 11,
+            "block_order": 9,
+            "group_id": 11,
+            "block_polygon_points": [
+              [
+                141.0,
+                600.0
+              ],
+              [
+                1026.0,
+                600.0
+              ],
+              [
+                1026.0,
+                656.0
+              ],
+              [
+                141.0,
+                656.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "* Mức bình quân của tiên lương, thu nhập tháng là:\n\n(280.898.280 đ + 815.443.200 đ + 534.193.920 đ) : 96 tháng = 16.984.744 đồng",
+            "block_bbox": [
+              140,
+              664,
+              1036,
+              717
+            ],
+            "block_id": 12,
+            "block_order": 10,
+            "group_id": 12,
+            "block_polygon_points": [
+              [
+                140.0,
+                664.0
+              ],
+              [
+                1036.0,
+                664.0
+              ],
+              [
+                1036.0,
+                717.0
+              ],
+              [
+                140.0,
+                717.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "3. Tính tỷ lệ % để tính lương hưu hàng tháng: 53%",
+            "block_bbox": [
+              138,
+              716,
+              681,
+              748
+            ],
+            "block_id": 13,
+            "block_order": 11,
+            "group_id": 13,
+            "block_polygon_points": [
+              [
+                138,
+                716
+              ],
+              [
+                138,
+                747
+              ],
+              [
+                680,
+                747
+              ],
+              [
+                680,
+                716
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "4. Mức lượng hưu:",
+            "block_bbox": [
+              139,
+              750,
+              344,
+              780
+            ],
+            "block_id": 14,
+            "block_order": 12,
+            "group_id": 14,
+            "block_polygon_points": [
+              [
+                139.0,
+                750.0
+              ],
+              [
+                344.0,
+                750.0
+              ],
+              [
+                344.0,
+                780.0
+              ],
+              [
+                139.0,
+                780.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Lương hữu hằng tháng : 16.984.744 đ x 53% = 9.001.914 đồng\n\n(Số tiền bằng chữ: Chín triệu không trăm linh một nghìn chín trăm mười bốn đồng)",
+            "block_bbox": [
+              137,
+              783,
+              1089,
+              847
+            ],
+            "block_id": 15,
+            "block_order": 13,
+            "group_id": 15,
+            "block_polygon_points": [
+              [
+                137,
+                783
+              ],
+              [
+                137,
+                846
+              ],
+              [
+                1088,
+                846
+              ],
+              [
+                1077,
+                783
+              ],
+              [
+                976,
+                783
+              ],
+              [
+                929,
+                783
+              ],
+              [
+                881,
+                791
+              ],
+              [
+                809,
+                783
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "5. Trợ cấp một lần:",
+            "block_bbox": [
+              139,
+              848,
+              348,
+              878
+            ],
+            "block_id": 16,
+            "block_order": 14,
+            "group_id": 16,
+            "block_polygon_points": [
+              [
+                139.0,
+                848.0
+              ],
+              [
+                348.0,
+                848.0
+              ],
+              [
+                348.0,
+                878.0
+              ],
+              [
+                139.0,
+                878.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "a. Trợ cấp một lần khi nghỉ hữu (nếu có): 0 đồng",
+            "block_bbox": [
+              138,
+              880,
+              658,
+              911
+            ],
+            "block_id": 17,
+            "block_order": 15,
+            "group_id": 17,
+            "block_polygon_points": [
+              [
+                138.0,
+                880.0
+              ],
+              [
+                658.0,
+                880.0
+              ],
+              [
+                658.0,
+                911.0
+              ],
+              [
+                138.0,
+                911.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "b. Mức trợ cấp khu vực một lần (nếu có) : 379.080 đồng",
+            "block_bbox": [
+              138,
+              912,
+              734,
+              941
+            ],
+            "block_id": 18,
+            "block_order": 16,
+            "group_id": 18,
+            "block_polygon_points": [
+              [
+                138.0,
+                912.0
+              ],
+              [
+                734.0,
+                912.0
+              ],
+              [
+                734.0,
+                941.0
+              ],
+              [
+                138.0,
+                941.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "* Mức trợ cấp do ngân sách Nhà nước đảm bảo: 0 đồng",
+            "block_bbox": [
+              140,
+              941,
+              730,
+              972
+            ],
+            "block_id": 19,
+            "block_order": 17,
+            "group_id": 19,
+            "block_polygon_points": [
+              [
+                140.0,
+                941.0
+              ],
+              [
+                730.0,
+                941.0
+              ],
+              [
+                730.0,
+                972.0
+              ],
+              [
+                140.0,
+                972.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "* Mức trợ cấp do quỹ BHXH đảm bảo:",
+            "block_bbox": [
+              140,
+              970,
+              557,
+              998
+            ],
+            "block_id": 20,
+            "block_order": 18,
+            "group_id": 20,
+            "block_polygon_points": [
+              [
+                140,
+                970
+              ],
+              [
+                140,
+                990
+              ],
+              [
+                152,
+                997
+              ],
+              [
+                312,
+                997
+              ],
+              [
+                319,
+                997
+              ],
+              [
+                336,
+                997
+              ],
+              [
+                343,
+                997
+              ],
+              [
+                372,
+                997
+              ],
+              [
+                415,
+                997
+              ],
+              [
+                420,
+                990
+              ],
+              [
+                444,
+                997
+              ],
+              [
+                455,
+                997
+              ],
+              [
+                462,
+                997
+              ],
+              [
+                468,
+                990
+              ],
+              [
+                498,
+                997
+              ],
+              [
+                504,
+                990
+              ],
+              [
+                510,
+                997
+              ],
+              [
+                551,
+                997
+              ],
+              [
+                556,
+                990
+              ],
+              [
+                556,
+                970
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "- Từ tháng 12/2002 đến tháng 08/2003 là 9 tháng, hệ số KV: 0,30, hệ số PC binh sĩ: 0,4: 0,4 x 0,30 x 9 x 15% x 2.340.000 = 379.080 đồng",
+            "block_bbox": [
+              138,
+              997,
+              1063,
+              1054
+            ],
+            "block_id": 21,
+            "block_order": 19,
+            "group_id": 21,
+            "block_polygon_points": [
+              [
+                138.0,
+                997.0
+              ],
+              [
+                1063.0,
+                997.0
+              ],
+              [
+                1063.0,
+                1054.0
+              ],
+              [
+                138.0,
+                1054.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Tông cộng trợ cập một lần (a + b): 3/9.080 động\n\n(Số tiền bằng chữ: Ba trăm bảy mươi chín nghìn không trăm tám mươi đồng)",
+            "block_bbox": [
+              133,
+              1060,
+              1057,
+              1123
+            ],
+            "block_id": 22,
+            "block_order": 20,
+            "group_id": 22,
+            "block_polygon_points": [
+              [
+                139,
+                1060
+              ],
+              [
+                139,
+                1122
+              ],
+              [
+                1056,
+                1122
+              ],
+              [
+                1056,
+                1087
+              ],
+              [
+                1039,
+                1077
+              ],
+              [
+                1045,
+                1060
+              ],
+              [
+                844,
+                1060
+              ],
+              [
+                843,
+                1069
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "CÁN BỘ XÉT DUYỆT\n\nCục CSXH, ngày 05 tháng 11 năm 2025\n\nPHÓ TRƯỞNG PHÒNG CHÉ ĐỘ BHXH",
+            "block_bbox": [
+              228,
+              1157,
+              498,
+              1195
+            ],
+            "block_id": 23,
+            "block_order": 21,
+            "group_id": 23,
+            "block_polygon_points": [
+              [
+                228.0,
+                1157.0
+              ],
+              [
+                498.0,
+                1157.0
+              ],
+              [
+                498.0,
+                1195.0
+              ],
+              [
+                228.0,
+                1195.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "",
+            "block_bbox": [
+              630,
+              1129,
+              1113,
+              1195
+            ],
+            "block_id": 24,
+            "block_order": 22,
+            "group_id": 23,
+            "block_polygon_points": [
+              [
+                630.0,
+                1129.0
+              ],
+              [
+                1113.0,
+                1129.0
+              ],
+              [
+                1113.0,
+                1195.0
+              ],
+              [
+                630.0,
+                1195.0
+              ]
+            ]
+          },
+          {
+            "block_label": "text",
+            "block_content": "Ký bỏi: Test 5\n\nNgày ký: 19-01-2026\n\n13:41:40 +07:00",
+            "block_bbox": [
+              767,
+              1215,
+              963,
+              1284
+            ],
+            "block_id": 25,
+            "block_order": 23,
+            "group_id": 25,
+            "block_polygon_points": [
+              [
+                767,
+                1215
+              ],
+              [
+                767,
+                1283
+              ],
+              [
+                962,
+                1283
+              ],
+              [
+                962,
+                1215
+              ]
+            ]
+          },
+          {
+            "block_label": "footer",
+            "block_content": "Thượng úy Phạm Thị Trinh",
+            "block_bbox": [
+              191,
+              1317,
+              536,
+              1353
+            ],
+            "block_id": 26,
+            "block_order": null,
+            "group_id": 26,
+            "block_polygon_points": [
+              [
+                191.0,
+                1317.0
+              ],
+              [
+                536.0,
+                1317.0
+              ],
+              [
+                536.0,
+                1353.0
+              ],
+              [
+                191.0,
+                1353.0
+              ]
+            ]
+          },
+          {
+            "block_label": "footer",
+            "block_content": "Đại tá Nguyễn Đình Hương",
+            "block_bbox": [
+              703,
+              1317,
+              1040,
+              1353
+            ],
+            "block_id": 27,
+            "block_order": null,
+            "group_id": 27,
+            "block_polygon_points": [
+              [
+                703.0,
+                1317.0
+              ],
+              [
+                1040.0,
+                1317.0
+              ],
+              [
+                1040.0,
+                1353.0
+              ],
+              [
+                703.0,
+                1353.0
+              ]
+            ]
+          }
+        ],
+        "layout_det_res": {
+          "input_path": null,
+          "page_index": null,
+          "boxes": [
+            {
+              "cls_id": 16,
+              "label": "number",
+              "score": 0.6561099290847778,
+              "coordinate": [
+                606,
+                14,
+                623,
+                34
+              ],
+              "order": 1,
+              "polygon_points": [
+                [
+                  606.0,
+                  14.0
+                ],
+                [
+                  622.0,
+                  14.0
+                ],
+                [
+                  622.0,
+                  33.0
+                ],
+                [
+                  606.0,
+                  33.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 12,
+              "label": "header",
+              "score": 0.6815709471702576,
+              "coordinate": [
+                747,
+                32,
+                1041,
+                60
+              ],
+              "order": null,
+              "polygon_points": [
+                [
+                  747.0,
+                  32.0
+                ],
+                [
+                  1041.0,
+                  32.0
+                ],
+                [
+                  1041.0,
+                  60.0
+                ],
+                [
+                  747.0,
+                  60.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 21,
+              "label": "table",
+              "score": 0.9615828990936279,
+              "coordinate": [
+                67,
+                62,
+                1159,
+                283
+              ],
+              "order": null,
+              "polygon_points": [
+                [
+                  67.0,
+                  62.0
+                ],
+                [
+                  1159.0,
+                  62.0
+                ],
+                [
+                  1159.0,
+                  283.0
+                ],
+                [
+                  67.0,
+                  283.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 17,
+              "label": "paragraph_title",
+              "score": 0.5806671977043152,
+              "coordinate": [
+                138,
+                289,
+                865,
+                322
+              ],
+              "order": 2,
+              "polygon_points": [
+                [
+                  138.0,
+                  289.0
+                ],
+                [
+                  865.0,
+                  289.0
+                ],
+                [
+                  865.0,
+                  322.0
+                ],
+                [
+                  138.0,
+                  322.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.43854624032974243,
+              "coordinate": [
+                143,
+                326,
+                1149,
+                357
+              ],
+              "order": 3,
+              "polygon_points": [
+                [
+                  143.0,
+                  326.0
+                ],
+                [
+                  1149.0,
+                  326.0
+                ],
+                [
+                  1149.0,
+                  357.0
+                ],
+                [
+                  143.0,
+                  357.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.34627845883369446,
+              "coordinate": [
+                138,
+                358,
+                876,
+                388
+              ],
+              "order": 4,
+              "polygon_points": [
+                [
+                  138.0,
+                  358.0
+                ],
+                [
+                  876.0,
+                  358.0
+                ],
+                [
+                  876.0,
+                  388.0
+                ],
+                [
+                  138.0,
+                  388.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.3827444911003113,
+              "coordinate": [
+                137,
+                388,
+                811,
+                420
+              ],
+              "order": 5,
+              "polygon_points": [
+                [
+                  137.0,
+                  388.0
+                ],
+                [
+                  811.0,
+                  388.0
+                ],
+                [
+                  811.0,
+                  420.0
+                ],
+                [
+                  137.0,
+                  420.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.44776272773742676,
+              "coordinate": [
+                137,
+                421,
+                796,
+                452
+              ],
+              "order": 6,
+              "polygon_points": [
+                [
+                  137.0,
+                  421.0
+                ],
+                [
+                  796.0,
+                  421.0
+                ],
+                [
+                  796.0,
+                  452.0
+                ],
+                [
+                  137.0,
+                  452.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.43725937604904175,
+              "coordinate": [
+                138,
+                454,
+                1106,
+                485
+              ],
+              "order": 7,
+              "polygon_points": [
+                [
+                  138.0,
+                  454.0
+                ],
+                [
+                  1106.0,
+                  454.0
+                ],
+                [
+                  1106.0,
+                  485.0
+                ],
+                [
+                  138.0,
+                  485.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.43559926748275757,
+              "coordinate": [
+                141,
+                485,
+                1022,
+                541
+              ],
+              "order": 8,
+              "polygon_points": [
+                [
+                  141.0,
+                  485.0
+                ],
+                [
+                  1022.0,
+                  485.0
+                ],
+                [
+                  1022.0,
+                  541.0
+                ],
+                [
+                  141.0,
+                  541.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.48553165793418884,
+              "coordinate": [
+                139,
+                541,
+                1026,
+                599
+              ],
+              "order": 9,
+              "polygon_points": [
+                [
+                  139.0,
+                  541.0
+                ],
+                [
+                  1026.0,
+                  541.0
+                ],
+                [
+                  1026.0,
+                  599.0
+                ],
+                [
+                  139.0,
+                  599.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.45331206917762756,
+              "coordinate": [
+                141,
+                600,
+                1026,
+                656
+              ],
+              "order": 10,
+              "polygon_points": [
+                [
+                  141.0,
+                  600.0
+                ],
+                [
+                  1026.0,
+                  600.0
+                ],
+                [
+                  1026.0,
+                  656.0
+                ],
+                [
+                  141.0,
+                  656.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.3659868538379669,
+              "coordinate": [
+                140,
+                664,
+                1036,
+                717
+              ],
+              "order": 11,
+              "polygon_points": [
+                [
+                  140.0,
+                  664.0
+                ],
+                [
+                  1036.0,
+                  664.0
+                ],
+                [
+                  1036.0,
+                  717.0
+                ],
+                [
+                  140.0,
+                  717.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.506566047668457,
+              "coordinate": [
+                138,
+                716,
+                681,
+                748
+              ],
+              "order": 12,
+              "polygon_points": [
+                [
+                  138,
+                  716
+                ],
+                [
+                  138,
+                  747
+                ],
+                [
+                  680,
+                  747
+                ],
+                [
+                  680,
+                  716
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.4131286144256592,
+              "coordinate": [
+                139,
+                750,
+                344,
+                780
+              ],
+              "order": 13,
+              "polygon_points": [
+                [
+                  139.0,
+                  750.0
+                ],
+                [
+                  344.0,
+                  750.0
+                ],
+                [
+                  344.0,
+                  780.0
+                ],
+                [
+                  139.0,
+                  780.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.44223207235336304,
+              "coordinate": [
+                137,
+                783,
+                809,
+                814
+              ],
+              "order": 14,
+              "polygon_points": [
+                [
+                  137.0,
+                  783.0
+                ],
+                [
+                  809.0,
+                  783.0
+                ],
+                [
+                  809.0,
+                  814.0
+                ],
+                [
+                  137.0,
+                  814.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.37849488854408264,
+              "coordinate": [
+                137,
+                783,
+                1089,
+                847
+              ],
+              "order": 15,
+              "polygon_points": [
+                [
+                  137,
+                  783
+                ],
+                [
+                  137,
+                  846
+                ],
+                [
+                  1088,
+                  846
+                ],
+                [
+                  1077,
+                  783
+                ],
+                [
+                  976,
+                  783
+                ],
+                [
+                  929,
+                  783
+                ],
+                [
+                  881,
+                  791
+                ],
+                [
+                  809,
+                  783
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.40344277024269104,
+              "coordinate": [
+                209,
+                815,
+                1086,
+                847
+              ],
+              "order": 16,
+              "polygon_points": [
+                [
+                  209,
+                  815
+                ],
+                [
+                  215,
+                  846
+                ],
+                [
+                  416,
+                  846
+                ],
+                [
+                  429,
+                  846
+                ],
+                [
+                  499,
+                  846
+                ],
+                [
+                  500,
+                  838
+                ],
+                [
+                  1085,
+                  846
+                ],
+                [
+                  1085,
+                  815
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5493755340576172,
+              "coordinate": [
+                139,
+                848,
+                348,
+                878
+              ],
+              "order": 17,
+              "polygon_points": [
+                [
+                  139.0,
+                  848.0
+                ],
+                [
+                  348.0,
+                  848.0
+                ],
+                [
+                  348.0,
+                  878.0
+                ],
+                [
+                  139.0,
+                  878.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.690047562122345,
+              "coordinate": [
+                138,
+                880,
+                658,
+                911
+              ],
+              "order": 18,
+              "polygon_points": [
+                [
+                  138.0,
+                  880.0
+                ],
+                [
+                  658.0,
+                  880.0
+                ],
+                [
+                  658.0,
+                  911.0
+                ],
+                [
+                  138.0,
+                  911.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.6070863008499146,
+              "coordinate": [
+                138,
+                912,
+                734,
+                941
+              ],
+              "order": 19,
+              "polygon_points": [
+                [
+                  138.0,
+                  912.0
+                ],
+                [
+                  734.0,
+                  912.0
+                ],
+                [
+                  734.0,
+                  941.0
+                ],
+                [
+                  138.0,
+                  941.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.633561372756958,
+              "coordinate": [
+                140,
+                941,
+                730,
+                972
+              ],
+              "order": 20,
+              "polygon_points": [
+                [
+                  140.0,
+                  941.0
+                ],
+                [
+                  730.0,
+                  941.0
+                ],
+                [
+                  730.0,
+                  972.0
+                ],
+                [
+                  140.0,
+                  972.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5900964140892029,
+              "coordinate": [
+                140,
+                970,
+                557,
+                998
+              ],
+              "order": 21,
+              "polygon_points": [
+                [
+                  140,
+                  970
+                ],
+                [
+                  140,
+                  990
+                ],
+                [
+                  152,
+                  997
+                ],
+                [
+                  312,
+                  997
+                ],
+                [
+                  319,
+                  997
+                ],
+                [
+                  336,
+                  997
+                ],
+                [
+                  343,
+                  997
+                ],
+                [
+                  372,
+                  997
+                ],
+                [
+                  415,
+                  997
+                ],
+                [
+                  420,
+                  990
+                ],
+                [
+                  444,
+                  997
+                ],
+                [
+                  455,
+                  997
+                ],
+                [
+                  462,
+                  997
+                ],
+                [
+                  468,
+                  990
+                ],
+                [
+                  498,
+                  997
+                ],
+                [
+                  504,
+                  990
+                ],
+                [
+                  510,
+                  997
+                ],
+                [
+                  551,
+                  997
+                ],
+                [
+                  556,
+                  990
+                ],
+                [
+                  556,
+                  970
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.5133220553398132,
+              "coordinate": [
+                138,
+                997,
+                1063,
+                1054
+              ],
+              "order": 22,
+              "polygon_points": [
+                [
+                  138.0,
+                  997.0
+                ],
+                [
+                  1063.0,
+                  997.0
+                ],
+                [
+                  1063.0,
+                  1054.0
+                ],
+                [
+                  138.0,
+                  1054.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.34768441319465637,
+              "coordinate": [
+                139,
+                1056,
+                660,
+                1089
+              ],
+              "order": 23,
+              "polygon_points": [
+                [
+                  139.0,
+                  1056.0
+                ],
+                [
+                  660.0,
+                  1056.0
+                ],
+                [
+                  660.0,
+                  1089.0
+                ],
+                [
+                  139.0,
+                  1089.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.41409412026405334,
+              "coordinate": [
+                133,
+                1060,
+                1057,
+                1123
+              ],
+              "order": 24,
+              "polygon_points": [
+                [
+                  139,
+                  1060
+                ],
+                [
+                  139,
+                  1122
+                ],
+                [
+                  1056,
+                  1122
+                ],
+                [
+                  1056,
+                  1087
+                ],
+                [
+                  1039,
+                  1077
+                ],
+                [
+                  1045,
+                  1060
+                ],
+                [
+                  844,
+                  1060
+                ],
+                [
+                  843,
+                  1069
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.353283166885376,
+              "coordinate": [
+                234,
+                1087,
+                1055,
+                1123
+              ],
+              "order": 25,
+              "polygon_points": [
+                [
+                  240,
+                  1096
+                ],
+                [
+                  246,
+                  1122
+                ],
+                [
+                  1013,
+                  1122
+                ],
+                [
+                  1013,
+                  1114
+                ],
+                [
+                  1013,
+                  1087
+                ],
+                [
+                  966,
+                  1087
+                ],
+                [
+                  918,
+                  1087
+                ],
+                [
+                  383,
+                  1087
+                ],
+                [
+                  376,
+                  1087
+                ],
+                [
+                  246,
+                  1087
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.6544280648231506,
+              "coordinate": [
+                228,
+                1157,
+                498,
+                1195
+              ],
+              "order": 26,
+              "polygon_points": [
+                [
+                  228.0,
+                  1157.0
+                ],
+                [
+                  498.0,
+                  1157.0
+                ],
+                [
+                  498.0,
+                  1195.0
+                ],
+                [
+                  228.0,
+                  1195.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.6780539751052856,
+              "coordinate": [
+                630,
+                1129,
+                1113,
+                1195
+              ],
+              "order": 27,
+              "polygon_points": [
+                [
+                  630.0,
+                  1129.0
+                ],
+                [
+                  1113.0,
+                  1129.0
+                ],
+                [
+                  1113.0,
+                  1195.0
+                ],
+                [
+                  630.0,
+                  1195.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.4174695312976837,
+              "coordinate": [
+                768,
+                1215,
+                903,
+                1241
+              ],
+              "order": 28,
+              "polygon_points": [
+                [
+                  768.0,
+                  1215.0
+                ],
+                [
+                  903.0,
+                  1215.0
+                ],
+                [
+                  903.0,
+                  1241.0
+                ],
+                [
+                  768.0,
+                  1241.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.3525812327861786,
+              "coordinate": [
+                767,
+                1215,
+                963,
+                1284
+              ],
+              "order": 29,
+              "polygon_points": [
+                [
+                  767,
+                  1215
+                ],
+                [
+                  767,
+                  1283
+                ],
+                [
+                  962,
+                  1283
+                ],
+                [
+                  962,
+                  1215
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.39975714683532715,
+              "coordinate": [
+                769,
+                1236,
+                962,
+                1263
+              ],
+              "order": 30,
+              "polygon_points": [
+                [
+                  769,
+                  1236
+                ],
+                [
+                  769,
+                  1262
+                ],
+                [
+                  961,
+                  1262
+                ],
+                [
+                  961,
+                  1236
+                ]
+              ]
+            },
+            {
+              "cls_id": 22,
+              "label": "text",
+              "score": 0.37326452136039734,
+              "coordinate": [
+                770,
+                1260,
+                922,
+                1285
+              ],
+              "order": 31,
+              "polygon_points": [
+                [
+                  770,
+                  1260
+                ],
+                [
+                  770,
+                  1276
+                ],
+                [
+                  776,
+                  1284
+                ],
+                [
+                  921,
+                  1284
+                ],
+                [
+                  921,
+                  1260
+                ]
+              ]
+            },
+            {
+              "cls_id": 8,
+              "label": "footer",
+              "score": 0.8343747854232788,
+              "coordinate": [
+                191,
+                1317,
+                536,
+                1353
+              ],
+              "order": null,
+              "polygon_points": [
+                [
+                  191.0,
+                  1317.0
+                ],
+                [
+                  536.0,
+                  1317.0
+                ],
+                [
+                  536.0,
+                  1353.0
+                ],
+                [
+                  191.0,
+                  1353.0
+                ]
+              ]
+            },
+            {
+              "cls_id": 8,
+              "label": "footer",
+              "score": 0.7986350655555725,
+              "coordinate": [
+                703,
+                1317,
+                1040,
+                1353
+              ],
+              "order": null,
+              "polygon_points": [
+                [
+                  703.0,
+                  1317.0
+                ],
+                [
+                  1040.0,
+                  1317.0
+                ],
+                [
+                  1040.0,
+                  1353.0
+                ],
+                [
+                  703.0,
+                  1353.0
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "markdown": {
+        "text": "",
+        "images": {}
+      },
+      "outputImages": {},
+      "inputImage": "/v1/results/req_vl_20260330T022358_28e2c009/input"
+    }
+  ],
+  "dataInfo": {
+    "width": null,
+    "height": null,
+    "type": "pdf",
+    "page_count": 1,
+    "pages": [
+      {
+        "page_index": 0,
+        "width": 595,
+        "height": 842
+      }
+    ]
+  },
+  "preprocessedImages": [],
+  "pageCount": 1,
+  "rawText": "2\nMã số BHXH: 9712306688\n<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>1</td><td style='text-align: center; word-wrap: break-word;'>2</td><td style='text-align: center; word-wrap: break-word;'>3</td><td style='text-align: center; word-wrap: break-word;'>4</td><td style='text-align: center; word-wrap: break-word;'>5</td><td style='text-align: center; word-wrap: break-word;'>6</td><td style='text-align: center; word-wrap: break-word;'>7</td><td style='text-align: center; word-wrap: break-word;'>8</td><td style='text-align: center; word-wrap: break-word;'>9</td><td style='text-align: center; word-wrap: break-word;'>10</td><td style='text-align: center; word-wrap: break-word;'>11</td><td style='text-align: center; word-wrap: break-word;'>12</td><td style='text-align: center; word-wrap: break-word;'>13</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>05/2023</td><td style='text-align: center; word-wrap: break-word;'>09/2025</td><td style='text-align: center; word-wrap: break-word;'>Thiếu tá NLL1, Trợ lý Quân lực, Ban CHQS huyện Hàm Thuận Nam, Bộ CHQS tinh Bình Thuận, Quân khu 7</td><td style='text-align: center; word-wrap: break-word;'>2</td><td style='text-align: center; word-wrap: break-word;'>5</td><td style='text-align: center; word-wrap: break-word;'>6,40</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'>23%</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td colspan=\"3\">Đóng BHXH một lần</td><td style='text-align: center; word-wrap: break-word;'>0</td><td style='text-align: center; word-wrap: break-word;'>0</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td colspan=\"3\">TỔNG CỘNG</td><td style='text-align: center; word-wrap: break-word;'>23</td><td style='text-align: center; word-wrap: break-word;'>7</td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr></table>\n### II. CHẾ ĐỘ HỪU TRÍ CỦA ĐỒNG CHÍ NGUYỄN VIỆT TƯỢNG\n1. Thời gian đóng BHXH được tính hướng lương hưu tính đến ngày 30 tháng 09 năm 2025 bằng\n23 năm 07 tháng; trong đó có 23 năm 07 tháng đóng BHXH bắt buộc.\n- Tiền lương tháng liền kề trước khi nghĩ hưu: 18.420.480 đồng\n- Số tháng nghỉ hữu trước tuổi, từ đủ 5 năm trở lên: 105 tháng\n2. Mức bình quân tiến lương, thu nhập tháng để tính hướng chế độ hưu trí: 16.984.744 đồng\n- Từ tháng 10/2017 đến tháng 04/2019 là 19 tháng; hệ số 5,40; thâm niên nghề 17%: 2.340.000 x 5,40 x 1,17 x 19 tháng = 280.898.280 đồng\n- Từ tháng 05/2019 đến tháng 04/2023 là 48 tháng; hệ số 6,00; thâm niên nghề 21%: 2.340.000 x 6 x 1,21 x 48 tháng = 815.443.200 đồng\n- Từ tháng 05/2023 đến tháng 09/2025 là 29 tháng; hệ số 6,40; thâm niên nghề 23%: 2.340.000 x 6,40 x 1,23 x 29 tháng = 534.193.920 đồng\n* Mức bình quân của tiên lương, thu nhập tháng là:\n\n(280.898.280 đ + 815.443.200 đ + 534.193.920 đ) : 96 tháng = 16.984.744 đồng\n3. Tính tỷ lệ % để tính lương hưu hàng tháng: 53%\n4. Mức lượng hưu:\nLương hữu hằng tháng : 16.984.744 đ x 53% = 9.001.914 đồng\n\n(Số tiền bằng chữ: Chín triệu không trăm linh một nghìn chín trăm mười bốn đồng)\n5. Trợ cấp một lần:\na. Trợ cấp một lần khi nghỉ hữu (nếu có): 0 đồng\nb. Mức trợ cấp khu vực một lần (nếu có) : 379.080 đồng\n* Mức trợ cấp do ngân sách Nhà nước đảm bảo: 0 đồng\n* Mức trợ cấp do quỹ BHXH đảm bảo:\n- Từ tháng 12/2002 đến tháng 08/2003 là 9 tháng, hệ số KV: 0,30, hệ số PC binh sĩ: 0,4: 0,4 x 0,30 x 9 x 15% x 2.340.000 = 379.080 đồng\nTông cộng trợ cập một lần (a + b): 3/9.080 động\n\n(Số tiền bằng chữ: Ba trăm bảy mươi chín nghìn không trăm tám mươi đồng)\nCÁN BỘ XÉT DUYỆT\n\nCục CSXH, ngày 05 tháng 11 năm 2025\n\nPHÓ TRƯỞNG PHÒNG CHÉ ĐỘ BHXH\nKý bỏi: Test 5\n\nNgày ký: 19-01-2026\n\n13:41:40 +07:00\nThượng úy Phạm Thị Trinh\nĐại tá Nguyễn Đình Hương",
+  "processingDurationMs": 77071,
+  "detectorConfidence": 0.515,
+  "engineVersion": "PaddleOCR-VL/v1.5",
+  "pageMetrics": [
+    {
+      "pageIndex": 0,
+      "processingDurationMs": 76573,
+      "detectorConfidence": 0.515,
+      "blockCount": 28
+    }
+  ],
+  "pageSelection": {
+    "pageStart": 1,
+    "pageEnd": 1,
+    "selectedPageCount": 1,
+    "totalPageCount": 1
+  },
+  "tableDetection": {
+    "backend": "protonx",
+    "enabled": true,
+    "status": "succeeded",
+    "modelName": "protonx-models/protonx-table-detector",
+    "threshold": 0.8,
+    "documentHasTable": true,
+    "processingDurationMs": 305,
+    "recommendedRoute": "ocr_vl_service",
+    "actualRoute": "ocr_vl_service",
+    "error": null,
+    "pages": [
+      {
+        "pageIndex": 0,
+        "hasTable": true,
+        "score": 0.9666,
+        "label": "table"
+      }
+    ]
+  },
+  "stageTimings": {
+    "inputPrepareMs": 28,
+    "pdfRenderMs": 24,
+    "tableDetectionMs": 305,
+    "ocrMs": 77071,
+    "resultAssemblyMs": 1
+  },
+  "artifacts": {
+    "json_url": "/v1/results/req_20260330T022349_0bfcdc28/json"
+  }
+}
