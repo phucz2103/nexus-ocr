@@ -13,10 +13,10 @@
       ROUTER_SERVICE_TABLE_DETECTOR_BACKEND: protonx
       ROUTER_SERVICE_OCR_BACKEND: paddleocr_vietocr
       ROUTER_SERVICE_VL_BACKEND: paddleocr_vl
-      ROUTER_SERVICE_ARTIFACT_ROOT: /var/lib/router-service/artifacts
+      ROUTER_SERVICE_ARTIFACT_ROOT: /var/lib/router-service/results
     volumes:
       - router_model_cache:/root/.paddlex
-      - router_artifacts:/var/lib/router-service/artifacts
+      - router_results:/var/lib/router-service/results
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8300/health"]
       interval: 30s
@@ -26,4 +26,5 @@
 
 volumes:
   router_model_cache:
-  router_artifacts:
+  router_results:
+

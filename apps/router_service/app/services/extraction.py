@@ -421,7 +421,6 @@ class ExtractionService:
         selected_runtime: LocalOcrRuntime | LocalVlRuntime,
     ) -> None:
         if selected_runtime is self._ocr_runtime:
-            self._vl_runtime.close()
             return
         self._ocr_runtime.close()
 

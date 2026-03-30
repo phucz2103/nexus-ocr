@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import io
+import logging
 import mimetypes
 import threading
 from datetime import datetime, timezone
@@ -16,6 +17,8 @@ from app.core.config import Settings
 from app.core.errors import ArtifactNotFoundError, InvalidUploadError
 from app.services.extraction import ExtractionService
 from app.services.storage import StorageService
+
+LOGGER = logging.getLogger(__name__)
 
 
 class AsyncJobService:
@@ -32,7 +35,9 @@ class AsyncJobService:
         self._jobs_root.mkdir(parents=True, exist_ok=True)
         self._record_lock = threading.Lock()
         self._worker_lock = threading.Lock()
+        self._warmup_lock = threading.Lock()
         self._threads: dict[str, threading.Thread] = {}
+        self._vl_warmed = False
 
     def create_job(
         self,
@@ -93,6 +98,16 @@ class AsyncJobService:
         return record
 
     def start_job(self, job_id: str) -> None:
+        try:
+            self._ensure_vl_runtime_warmed()
+        except Exception as exc:
+            detail = getattr(exc, "detail", str(exc))
+            self._update_job_record(
+                job_id,
+                status="failed",
+                error=detail,
+            )
+            return
         worker = threading.Thread(
             target=self._run_job,
             args=(job_id,),
@@ -107,6 +122,19 @@ class AsyncJobService:
 
     def close(self) -> None:
         return None
+
+    def _ensure_vl_runtime_warmed(self) -> None:
+        if self._vl_warmed:
+            return
+        with self._warmup_lock:
+            if self._vl_warmed:
+                return
+            vl_runtime = getattr(self._extraction_service, "_vl_runtime", None)
+            if vl_runtime is None:
+                return
+            LOGGER.info("Warming up shared VL runtime before background job execution")
+            vl_runtime.warmup()
+            self._vl_warmed = True
 
     def _run_job(self, job_id: str) -> None:
         with self._worker_lock:
