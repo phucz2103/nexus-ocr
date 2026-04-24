@@ -11,8 +11,12 @@
       ROUTER_SERVICE_BACKEND: router
       ROUTER_SERVICE_PRELOAD_MODEL: "false"
       ROUTER_SERVICE_TABLE_DETECTOR_BACKEND: protonx
+      ROUTER_SERVICE_TABLE_DETECTOR_FAIL_OPEN: "true"
       ROUTER_SERVICE_OCR_BACKEND: paddleocr_vietocr
+      ROUTER_SERVICE_OCR_PREFERRED_LANG: vi
+      ROUTER_SERVICE_OCR_VERSION: PP-OCRv5
       ROUTER_SERVICE_VL_BACKEND: paddleocr_vl
+      ROUTER_SERVICE_PIPELINE_VERSION: v1.5
       ROUTER_SERVICE_ARTIFACT_ROOT: /var/lib/router-service/results
     volumes:
       - router_model_cache:/root/.paddlex
@@ -27,4 +31,3 @@
 volumes:
   router_model_cache:
   router_results:
-

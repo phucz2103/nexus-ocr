@@ -2,12 +2,12 @@
 uvicorn==0.42.0
 pydantic-settings==2.13.1
 python-multipart==0.0.22
-Pillow>=10.0.0
-pypdfium2
+Pillow==10.2.0
+pypdfium2==5.6.0
+huggingface_hub==1.7.2
+paddleocr==3.4.0
+paddlex[ocr]==3.4.2
+vietocr==0.3.13
+# Keep torch packages unpinned here because CUDA build varies by machine.
 torch
 torchvision
-huggingface_hub
-paddleocr
-paddlex[ocr]
-vietocr
-
