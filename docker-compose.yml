@@ -23,10 +23,11 @@ services:
       - router_results:/var/lib/router-service/results
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8300/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
+      interval: 60s
+      timeout: 30s
+      retries: 10
+      start_period: 600s
+
 
 volumes:
   router_model_cache:
