@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     max_sync_pdf_pages: int = 5
     request_id_prefix: str = "req"
 
-    save_artifact_images: bool = False
+    save_artifact_images: bool = True
     generate_markdown: bool = False
     pdf_render_scale: float = 2.5
 
@@ -64,7 +64,7 @@ class Settings(BaseSettings):
     table_detector_mock_table_score: float = 0.95
     table_detector_mock_no_table_score: float = 0.05
 
-    ocr_backend: str = "paddleocr_vietocr"
+    ocr_backend: str = "paddleocr"
     ocr_device: str | None = None
     ocr_preferred_lang: str = "vi"
     ocr_version: str = "PP-OCRv5"

@@ -118,35 +118,37 @@ async def extract(
     return _to_extract_response(result)
 
 
-@router.post(
-    "/v1/extract/jobs",
-    response_model=ExtractJobResponse,
-    status_code=status.HTTP_202_ACCEPTED,
-)
-async def create_extract_job(
-    file: UploadFile = File(...),
-    page_start: str | None = Form(None),
-    page_end: str | None = Form(None),
-    service: AsyncJobService = Depends(get_job_service),
-) -> ExtractJobResponse:
-    payload = await file.read()
-    result = service.create_job(
-        payload=payload,
-        filename=file.filename,
-        content_type=file.content_type,
-        page_start=_parse_optional_page_value(page_start, "page_start"),
-        page_end=_parse_optional_page_value(page_end, "page_end"),
-    )
-    service.start_job(result["job_id"])
-    return _to_job_response(result)
+# @router.post(
+#     "/v1/extract/jobs",
+#     response_model=ExtractJobResponse,
+#     status_code=status.HTTP_202_ACCEPTED,
+# )
+# async def create_extract_job(
+#     file: UploadFile = File(...),
+#     page_start: str | None = Form(None),
+#     page_end: str | None = Form(None),
+#     service: AsyncJobService = Depends(get_job_service),
+# ) -> ExtractJobResponse:
+#     payload = await file.read()
+#     result = service.create_job(
+#         payload=payload,
+#         filename=file.filename,
+#         content_type=file.content_type,
+#         page_start=_parse_optional_page_value(page_start, "page_start"),
+#         page_end=_parse_optional_page_value(page_end, "page_end"),
+#     )
+#     service.start_job(result["job_id"])
+#     return _to_job_response(result)
 
 
-@router.get("/v1/extract/jobs/{job_id}", response_model=ExtractJobResponse)
-def get_extract_job(
-    job_id: str,
-    service: AsyncJobService = Depends(get_job_service),
-) -> ExtractJobResponse:
-    return _to_job_response(service.get_job(job_id))
+
+# @router.get("/v1/extract/jobs/{job_id}", response_model=ExtractJobResponse)
+# def get_extract_job(
+#     job_id: str,
+#     service: AsyncJobService = Depends(get_job_service),
+# ) -> ExtractJobResponse:
+#     return _to_job_response(service.get_job(job_id))
+
 
 
 @router.get("/v1/results/{request_id}/json")

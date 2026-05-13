@@ -32,7 +32,7 @@ class AsyncJobService:
         self._storage = storage
         self._extraction_service = extraction_service
         self._jobs_root = self._storage.root / "jobs"
-        self._jobs_root.mkdir(parents=True, exist_ok=True)
+
         self._record_lock = threading.Lock()
         self._worker_lock = threading.Lock()
         self._warmup_lock = threading.Lock()

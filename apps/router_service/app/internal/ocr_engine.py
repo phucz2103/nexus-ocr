@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import mimetypes
 from dataclasses import dataclass
@@ -69,6 +69,7 @@ class ExtractionService:
         page_start: int | None = None,
         page_end: int | None = None,
         enforce_sync_limit: bool = True,
+        request_id: str | None = None,
     ) -> CompletedExtraction:
         payload = await file.read()
         if not payload:
@@ -82,7 +83,7 @@ class ExtractionService:
 
         input_prepare_started_at = perf_counter()
         input_suffix = self._resolve_input_suffix(file)
-        request_id = self._generate_request_id()
+        request_id = request_id or self._generate_request_id()
         paths = self._storage.prepare_request(request_id, input_suffix)
         self._storage.write_bytes(paths.input_file, payload)
 
@@ -165,7 +166,8 @@ class ExtractionService:
         result_json["stageTimings"] = self._to_json_stage_timings(stage_timings)
 
         self._storage.write_json(paths.result_json, result_json)
-        self._storage.write_text(paths.result_markdown, result_markdown)
+        if self._settings.generate_markdown and result_markdown:
+            self._storage.write_text(paths.result_markdown, result_markdown)
 
         table_detection = self._build_disabled_table_detection()
         return CompletedExtraction(

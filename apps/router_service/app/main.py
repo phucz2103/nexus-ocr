@@ -39,7 +39,8 @@ async def lifespan(app: FastAPI):
         ocr_runtime,
         vl_runtime,
     )
-    job_service = AsyncJobService(settings, storage, extraction_service)
+    # job_service = AsyncJobService(settings, storage, extraction_service)
+
 
     app.state.settings = settings
     app.state.storage = storage
@@ -47,7 +48,8 @@ async def lifespan(app: FastAPI):
     app.state.ocr_runtime = ocr_runtime
     app.state.vl_runtime = vl_runtime
     app.state.extraction_service = extraction_service
-    app.state.job_service = job_service
+    # app.state.job_service = job_service
+
 
     if settings.preload_model:
         try:
@@ -66,7 +68,8 @@ async def lifespan(app: FastAPI):
     try:
         yield
     finally:
-        job_service.close()
+        # job_service.close()
+
         table_detector.close()
         ocr_runtime.close()
         vl_runtime.close()

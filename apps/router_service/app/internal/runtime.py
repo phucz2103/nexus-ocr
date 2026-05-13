@@ -168,15 +168,27 @@ class LocalOcrRuntime:
         page_start: int | None = None,
         page_end: int | None = None,
         enforce_sync_limit: bool = True,
+        request_id: str | None = None,
     ) -> LocalEngineResult:
-        completed = await self._service.extract(
+        if request_id:
+            runtime_settings = OcrSettingsView(self._settings, self._settings.artifact_root)
+            storage = StorageService(runtime_settings)
+            service = OcrExtractionService(runtime_settings, storage, self._backend)
+        else:
+            runtime_settings = self._runtime_settings
+            storage = self._storage
+            service = self._service
+
+        completed = await service.extract(
             file,
             page_start=page_start,
             page_end=page_end,
             enforce_sync_limit=enforce_sync_limit,
+            request_id=request_id,
         )
-        result_json = self._service.load_result_json(completed.request_id)
-        self._cleanup_request(completed.request_id)
+        result_json = service.load_result_json(completed.request_id)
+        if not self._settings.save_artifact_images and not request_id:
+            self._cleanup_request(completed.request_id)
         return LocalEngineResult(
             backend=completed.backend,
             summary=completed.summary,
@@ -250,15 +262,32 @@ class LocalVlRuntime:
         page_start: int | None = None,
         page_end: int | None = None,
         enforce_sync_limit: bool = True,
+        request_id: str | None = None,
     ) -> LocalEngineResult:
-        completed = await self._service.extract(
+        if request_id:
+            runtime_settings = VlSettingsView(self._settings, self._settings.artifact_root)
+            storage = StorageService(runtime_settings)
+            service = VlExtractionService(
+                runtime_settings,
+                storage,
+                self._backend,
+                self._table_detector,
+            )
+        else:
+            runtime_settings = self._runtime_settings
+            storage = self._storage
+            service = self._service
+
+        completed = await service.extract(
             file,
             page_start=page_start,
             page_end=page_end,
             enforce_sync_limit=enforce_sync_limit,
+            request_id=request_id,
         )
-        result_json = self._service.load_result_json(completed.request_id)
-        self._cleanup_request(completed.request_id)
+        result_json = service.load_result_json(completed.request_id)
+        if not self._settings.save_artifact_images and not request_id:
+            self._cleanup_request(completed.request_id)
         return LocalEngineResult(
             backend=completed.backend,
             summary=completed.summary,

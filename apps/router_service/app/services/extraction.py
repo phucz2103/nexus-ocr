@@ -168,6 +168,7 @@ class ExtractionService:
                 filename=resolved_filename,
                 content_type=file.content_type,
                 page_selection=page_selection,
+                request_id=request_id,
             )
             downstream_duration_ms = max(
                 1,
@@ -392,6 +393,7 @@ class ExtractionService:
         filename: str,
         content_type: str | None,
         page_selection: dict[str, Any] | None,
+        request_id: str | None = None,
     ) -> LocalEngineResult:
         from io import BytesIO
 
@@ -409,6 +411,7 @@ class ExtractionService:
                 page_start=(page_selection or {}).get("page_start"),
                 page_end=(page_selection or {}).get("page_end"),
                 enforce_sync_limit=False,
+                request_id=request_id,
             )
         finally:
             try:
